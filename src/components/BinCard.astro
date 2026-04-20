@@ -1,0 +1,128 @@
+---
+import { u } from '../utils/url';
+
+interface PricingRow {
+  label: string;
+  price: string;
+  note?: string;
+  highlight?: boolean;
+}
+
+interface Props {
+  size: string;
+  capacity: string;
+  description: string;
+  startingFrom?: string;
+  pricing?: PricingRow[];
+  orderHref?: string;
+  contactHref?: string;
+  notes?: string[];
+  icon?: string;
+  featured?: boolean;
+}
+
+const {
+  size,
+  capacity,
+  description,
+  startingFrom,
+  pricing = [],
+  orderHref,
+  contactHref,
+  notes = [],
+  featured = false,
+} = Astro.props;
+---
+
+<article
+  class:list={[
+    'rounded-2xl border flex flex-col transition-shadow hover:shadow-md',
+    featured
+      ? 'bg-kiwi-900 text-white border-kiwi-700 ring-2 ring-kiwi-500'
+      : 'bg-white text-gray-800 border-gray-200',
+  ]}
+  aria-label={`${size} bin option`}
+>
+  <!-- Card header -->
+  <div class:list={['px-6 pt-6 pb-5 border-b', featured ? 'border-kiwi-800' : 'border-gray-100']}>
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        {featured && (
+          <span class="inline-block text-xs font-bold uppercase tracking-wider bg-orange-500 text-white px-2.5 py-0.5 rounded-full mb-2">
+            Most Popular
+          </span>
+        )}
+        <h3 class:list={['text-xl font-bold', featured ? 'text-white' : 'text-kiwi-900']}>{size}</h3>
+        <p class:list={['text-sm mt-0.5', featured ? 'text-kiwi-300' : 'text-gray-500']}>{capacity}</p>
+      </div>
+      {startingFrom && (
+        <div class="text-right shrink-0">
+          <div class:list={['text-2xl font-extrabold', featured ? 'text-white' : 'text-kiwi-700']}>{startingFrom}</div>
+          <div class:list={['text-xs', featured ? 'text-kiwi-400' : 'text-gray-400']}>starting from</div>
+        </div>
+      )}
+    </div>
+    <p class:list={['text-sm mt-3 leading-relaxed', featured ? 'text-kiwi-200' : 'text-gray-600']}>{description}</p>
+  </div>
+
+  <!-- Pricing table -->
+  {pricing.length > 0 && (
+    <div class="px-6 py-4 flex-1">
+      <p class:list={['text-xs font-semibold uppercase tracking-wider mb-3', featured ? 'text-kiwi-400' : 'text-gray-400']}>
+        Payment frequency
+      </p>
+      <div class="space-y-1">
+        {pricing.map((row) => (
+          <div
+            class:list={[
+              'flex items-center justify-between py-1.5 px-3 rounded-lg text-sm',
+              row.highlight
+                ? featured ? 'bg-kiwi-700 text-white font-semibold' : 'bg-kiwi-50 text-kiwi-800 font-semibold'
+                : featured ? 'text-kiwi-200' : 'text-gray-700',
+            ]}
+          >
+            <span>{row.label}</span>
+            <span class="flex items-center gap-2 font-medium">
+              {row.price}
+              {row.note && (
+                <span class:list={['text-xs', featured ? 'text-green-400' : 'text-kiwi-600']}>{row.note}</span>
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <!-- Notes -->
+  {notes.length > 0 && (
+    <div class:list={['px-6 py-3', pricing.length > 0 ? 'border-t' : '', featured ? 'border-kiwi-800' : 'border-gray-100']}>
+      <ul class="space-y-1.5">
+        {notes.map((note) => (
+          <li class:list={['flex items-start gap-2 text-xs', featured ? 'text-kiwi-300' : 'text-gray-500']}>
+            <svg class="w-3.5 h-3.5 shrink-0 mt-0.5 text-kiwi-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            {note}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- CTA -->
+  <div class:list={['px-6 pb-6 pt-4 border-t', featured ? 'border-kiwi-800' : 'border-gray-100']}>
+    {orderHref ? (
+      <a href={orderHref} class:list={['w-full', featured ? 'btn-orange' : 'btn-primary']}>
+        Order Now
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+        </svg>
+      </a>
+    ) : contactHref ? (
+      <a href={contactHref} class:list={['w-full', featured ? 'btn-secondary' : 'btn-secondary']}>
+        Contact Us to Book
+      </a>
+    ) : null}
+  </div>
+</article>

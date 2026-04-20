@@ -1,0 +1,221 @@
+---
+/**
+ * OrderForm.astro – reusable bin order form for 120L and 240L.
+ * Posts to Web3Forms and redirects to on-site success page.
+ */
+interface PricingOption {
+  value: string;
+  label: string;
+  price: string;
+  saving?: string;
+}
+
+interface Props {
+  binSize: '120L' | '240L';
+  pricing: PricingOption[];
+  formTitle?: string;
+}
+
+const { binSize, pricing, formTitle } = Astro.props;
+const w3fKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+const successUrl = 'https://weighsone.github.io/kiwibins-site/success/order/';
+const formId = `order-form-${binSize.toLowerCase()}`;
+---
+
+<form
+  id={formId}
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  class="space-y-6"
+  novalidate
+  aria-label={`Order ${binSize} bin form`}
+>
+  <!-- Web3Forms required fields -->
+  <input type="hidden" name="access_key" value={w3fKey} />
+  <input type="hidden" name="subject" value={`New ${binSize} bin order – Kiwibins Horowhenua`} />
+  <input type="hidden" name="from_name" value="Kiwibins Website" />
+  <input type="hidden" name="redirect" value={successUrl} />
+  <input type="hidden" name="bin_size" value={binSize} />
+
+  <!-- Honeypot anti-spam -->
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  {formTitle && <h2 class="text-xl font-bold text-kiwi-900">{formTitle}</h2>}
+
+  <!-- Payment frequency selection -->
+  <fieldset>
+    <legend class="form-label mb-3">
+      Payment Frequency <span class="text-red-500" aria-hidden="true">*</span>
+    </legend>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-required="true">
+      {pricing.map((option, i) => (
+        <label
+          class="relative flex items-start gap-3 p-3.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-kiwi-400 has-[:checked]:border-kiwi-600 has-[:checked]:bg-kiwi-50 transition-colors"
+          for={`${formId}-freq-${i}`}
+        >
+          <input
+            type="radio"
+            id={`${formId}-freq-${i}`}
+            name="payment_frequency"
+            value={option.value}
+            required={i === 0}
+            checked={i === 0}
+            class="mt-0.5 text-kiwi-600 focus:ring-kiwi-500"
+          />
+          <div>
+            <div class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+              {option.label}
+              {option.saving && (
+                <span class="text-xs font-bold text-kiwi-600 bg-kiwi-100 px-1.5 py-0.5 rounded-full">
+                  {option.saving}
+                </span>
+              )}
+            </div>
+            <div class="text-base font-bold text-kiwi-700 mt-0.5">{option.price}</div>
+          </div>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <!-- Personal details -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div>
+      <label for={`${formId}-fname`} class="form-label">First Name <span class="text-red-500" aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id={`${formId}-fname`}
+        name="first_name"
+        required
+        autocomplete="given-name"
+        class="form-input"
+        placeholder="First name"
+      />
+    </div>
+    <div>
+      <label for={`${formId}-lname`} class="form-label">Last Name <span class="text-red-500" aria-hidden="true">*</span></label>
+      <input
+        type="text"
+        id={`${formId}-lname`}
+        name="last_name"
+        required
+        autocomplete="family-name"
+        class="form-input"
+        placeholder="Last name"
+      />
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+    <div>
+      <label for={`${formId}-phone`} class="form-label">Phone <span class="text-red-500" aria-hidden="true">*</span></label>
+      <input
+        type="tel"
+        id={`${formId}-phone`}
+        name="phone"
+        required
+        autocomplete="tel"
+        class="form-input"
+        placeholder="021 123 4567"
+      />
+    </div>
+    <div>
+      <label for={`${formId}-email`} class="form-label">Email <span class="text-red-500" aria-hidden="true">*</span></label>
+      <input
+        type="email"
+        id={`${formId}-email`}
+        name="email"
+        required
+        autocomplete="email"
+        class="form-input"
+        placeholder="you@example.com"
+      />
+    </div>
+  </div>
+
+  <!-- Address -->
+  <fieldset>
+    <legend class="form-label mb-2">
+      Service Address <span class="text-red-500" aria-hidden="true">*</span>
+    </legend>
+    <div class="space-y-3">
+      <input
+        type="text"
+        name="address_1"
+        required
+        autocomplete="address-line1"
+        class="form-input"
+        placeholder="Street address"
+        aria-label="Street address line 1"
+      />
+      <input
+        type="text"
+        name="address_2"
+        autocomplete="address-line2"
+        class="form-input"
+        placeholder="Apartment, unit, etc. (optional)"
+        aria-label="Street address line 2"
+      />
+      <div class="grid grid-cols-2 gap-3">
+        <input
+          type="text"
+          name="city"
+          required
+          autocomplete="address-level2"
+          class="form-input"
+          placeholder="City / Town"
+          aria-label="City"
+        />
+        <input
+          type="text"
+          name="postcode"
+          autocomplete="postal-code"
+          class="form-input"
+          placeholder="Post Code"
+          aria-label="Post code"
+        />
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Extra notes -->
+  <div>
+    <label for={`${formId}-message`} class="form-label">Additional Notes <span class="text-gray-400 font-normal text-xs">(optional)</span></label>
+    <textarea
+      id={`${formId}-message`}
+      name="message"
+      class="form-textarea"
+      rows="3"
+      placeholder="Any access notes, gate codes, or questions..."
+    ></textarea>
+  </div>
+
+  <!-- T&C -->
+  <div class="flex items-start gap-3">
+    <input
+      type="checkbox"
+      id={`${formId}-terms`}
+      name="terms_accepted"
+      required
+      class="mt-0.5 w-4 h-4 text-kiwi-600 border-gray-300 rounded focus:ring-kiwi-500"
+    />
+    <label for={`${formId}-terms`} class="text-sm text-gray-600">
+      I agree to the
+      <a href="/assets/pdfs/bin-hire-agreement.pdf" target="_blank" rel="noopener" class="text-kiwi-600 hover:underline" download>
+        Bin Hire Agreement (T&amp;Cs)
+      </a>
+      <span class="text-red-500" aria-hidden="true"> *</span>
+    </label>
+  </div>
+
+  <button type="submit" class="btn-primary w-full">
+    Submit Order Request
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+    </svg>
+  </button>
+
+  <p class="text-xs text-gray-400">
+    We aim to deliver your kiwibin within 3 working days. We'll be in touch to confirm your delivery.
+  </p>
+</form>

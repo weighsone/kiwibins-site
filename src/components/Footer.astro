@@ -1,0 +1,138 @@
+---
+import { u } from '../utils/url';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-kiwi-950 text-kiwi-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-1">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-9 h-9 bg-kiwi-600 rounded-lg flex items-center justify-center text-white shrink-0" aria-hidden="true">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-base font-bold text-white leading-tight">Kiwibins</div>
+            <div class="text-xs text-kiwi-400 font-medium leading-tight">Horowhenua</div>
+          </div>
+        </div>
+        <p class="text-sm text-kiwi-300 leading-relaxed">
+          Levin's local bin company. Family-run, community-focused rubbish collection across Horowhenua since 2020.
+        </p>
+        <a
+          href="https://www.facebook.com/p/Kiwi-Bins-Horowhenua-100067678432728/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 mt-4 text-sm text-kiwi-300 hover:text-white transition-colors"
+          aria-label="Follow us on Facebook"
+        >
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          @kiwibins on Facebook
+        </a>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h3>
+        <ul class="space-y-2.5 text-sm">
+          {[
+            { href: u('/'), label: 'Home' },
+            { href: u('/bins-and-prices/'), label: 'Bins & Prices' },
+            { href: u('/when-and-where/'), label: 'When & Where' },
+            { href: u('/faq/'), label: 'FAQ' },
+            { href: u('/about-us/'), label: 'About Us' },
+            { href: u('/contact-us/'), label: 'Contact Us' },
+          ].map(link => (
+            <li>
+              <a href={link.href} class="text-kiwi-300 hover:text-white transition-colors">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Documents -->
+      <div>
+        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Documents</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li>
+            <a
+              href={u('/assets/pdfs/bin-care-sheet.pdf')}
+              class="text-kiwi-300 hover:text-white transition-colors flex items-center gap-1.5"
+              download
+            >
+              <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>
+              </svg>
+              Wheelie Bin TLC (PDF)
+            </a>
+          </li>
+          <li>
+            <a
+              href={u('/assets/pdfs/bin-hire-agreement.pdf')}
+              class="text-kiwi-300 hover:text-white transition-colors flex items-center gap-1.5"
+              download
+            >
+              <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>
+              </svg>
+              Terms &amp; Conditions (PDF)
+            </a>
+          </li>
+        </ul>
+
+        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 mt-7">Order a Bin</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href={u('/order/120l/')} class="text-kiwi-300 hover:text-white transition-colors">Order 120L Bin</a></li>
+          <li><a href={u('/order/240l/')} class="text-kiwi-300 hover:text-white transition-colors">Order 240L Bin</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact</h3>
+        <ul class="space-y-3 text-sm text-kiwi-300">
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+            <a href="tel:063688586" class="hover:text-white transition-colors">06 368 8586</a>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+            <span>021 203 3205 <span class="text-kiwi-500 text-xs">(text drum requests)</span></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            <a href="mailto:info@kiwibinshorowhenua.co.nz" class="hover:text-white transition-colors break-all">
+              info@kiwibinshorowhenua.co.nz
+            </a>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+            <span>30 Queen Street West,<br />Levin 5510, NZ</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t border-kiwi-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-kiwi-500">
+      <p>&copy; {year} Kiwi Bins Horowhenua Ltd. All rights reserved.</p>
+      <p>Serving Horowhenua &mdash; Waitārere Beach to Manakau</p>
+    </div>
+  </div>
+</footer>

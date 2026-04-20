@@ -1,0 +1,25 @@
+---
+/**
+ * GoogleAnalytics.astro
+ * Conditionally inserts GA4 tracking code.
+ * Enabled only when PUBLIC_GA_MEASUREMENT_ID env var is set.
+ * Place inside <head> in Layout.astro.
+ */
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+{gaId && (
+  <>
+    <script
+      is:inline
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+    ></script>
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+  </>
+)}

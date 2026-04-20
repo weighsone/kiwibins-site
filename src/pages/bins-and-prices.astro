@@ -1,0 +1,155 @@
+---
+import Layout from '../components/Layout.astro';
+import Hero from '../components/Hero.astro';
+import BinCard from '../components/BinCard.astro';
+import { u } from '../utils/url';
+---
+
+<Layout
+  title="Bins & Prices"
+  description="Kiwibins Horowhenua bin sizes and pricing. 120L from $9/week, 240L from $13.20/week. Commercial bins available. Serving Levin and surrounds."
+  canonicalPath="/bins-and-prices/"
+>
+
+  <Hero
+    headline="What size suits?"
+    subheadline="Choose a bin size that fits your household or business, then scroll down to order or get in touch. Save up to 15% when you pay yearly."
+    compact
+  />
+
+  <!-- Bin cards -->
+  <section class="py-16 bg-gray-50" aria-labelledby="bins-heading">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="bins-heading" class="sr-only">Bin sizes and pricing</h2>
+
+      <!-- Residential bins -->
+      <h3 class="text-xs font-bold uppercase tracking-widest text-kiwi-600 mb-6">Residential</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+        <!-- 44-gallon drum -->
+        <BinCard
+          size="44-Gallon Drum with Liner"
+          capacity="Old-school drum service"
+          description="Our old-school drums are emptied on a text-booking system. Flexible and personal — handled by Eric, a 25+ year operator. Text 021 203 3205 to request an empty."
+          startingFrom="$23.00"
+          notes={[
+            'Pay per empty — cash on the day or direct debit/internet payment',
+            'Text 021 203 3205 to request a drum empty',
+            'Flexible — book when you need it',
+          ]}
+          contactHref={u('/contact-us/')}
+        />
+
+        <!-- 120L -->
+        <BinCard
+          size="120L Wheelie Bin"
+          capacity="Smaller households (1–2 people) or waste-conscious homes"
+          description="Weekly kerbside emptying for residential and commercial properties. Perfect if you're conscious of waste or live alone."
+          startingFrom="$9.00"
+          pricing={[
+            { label: 'Weekly', price: '$9.00' },
+            { label: 'Fortnightly', price: '$18.00' },
+            { label: 'Monthly', price: '$39.00' },
+            { label: '3 Monthly', price: '$110.00', note: 'Save 5%' },
+            { label: '6 Monthly', price: '$220.00', note: 'Save 10%' },
+            { label: 'Yearly', price: '$445.00', note: 'Save 15%', highlight: true },
+          ]}
+          orderHref={u('/order/120l/')}
+          featured
+        />
+
+        <!-- 240L -->
+        <BinCard
+          size="240L Wheelie Bin"
+          capacity="Households with 3+ people"
+          description="Our most popular residential bin. Weekly kerbside emptying for families and larger households."
+          startingFrom="$13.20"
+          pricing={[
+            { label: 'Weekly', price: '$13.20' },
+            { label: 'Fortnightly', price: '$26.40' },
+            { label: 'Monthly', price: '$55.00' },
+            { label: '3 Monthly', price: '$165.00', note: 'Save 5%' },
+            { label: '6 Monthly', price: '$310.00', note: 'Save 10%' },
+            { label: 'Yearly', price: '$585.00', note: 'Save 15%', highlight: true },
+          ]}
+          orderHref={u('/order/240l/')}
+          featured
+        />
+      </div>
+
+      <!-- Commercial bins -->
+      <h3 class="text-xs font-bold uppercase tracking-widest text-kiwi-600 mb-6">Commercial &amp; Multi-tenancy</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+
+        <!-- 660L -->
+        <BinCard
+          size="660L Wheelie Bin"
+          capacity="Commercial use or multiple households on one property"
+          description="Large shared bin for commercial properties and multi-tenancy sites. Weekly emptying with good access required."
+          startingFrom="$45.00"
+          notes={[
+            '6-month minimum hire',
+            'Good wheelie bin access required',
+            'Not suitable for large/heavy items exceeding truck compactor capacity',
+            'Maximum weight limit: 85 kg',
+          ]}
+          contactHref={u('/contact-us/')}
+        />
+
+        <!-- 1100L -->
+        <BinCard
+          size="1100L Wheelie Bin"
+          capacity="Large commercial properties"
+          description="Our biggest bin for high-volume commercial and industrial sites. Weekly emptying with easy access required."
+          startingFrom="$70.00"
+          notes={[
+            '6-month minimum hire',
+            'Good wheelie bin access required',
+            'Not suitable for large/heavy items exceeding truck compactor capacity',
+            'Maximum weight limit: 135 kg',
+          ]}
+          contactHref={u('/contact-us/')}
+        />
+      </div>
+
+      <!-- Documents & info -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="card bg-kiwi-50 border-kiwi-200">
+          <h3 class="font-bold text-kiwi-900 mb-3">Helpful documents</h3>
+          <ul class="space-y-2.5 text-sm">
+            <li>
+              <a href={u('/assets/pdfs/bin-care-sheet.pdf')} class="flex items-center gap-2 text-kiwi-700 hover:text-kiwi-900 font-medium transition-colors" download>
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>
+                </svg>
+                Wheelie Bin TLC – care guide (PDF)
+              </a>
+            </li>
+            <li>
+              <a href={u('/assets/pdfs/bin-hire-agreement.pdf')} class="flex items-center gap-2 text-kiwi-700 hover:text-kiwi-900 font-medium transition-colors" download>
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/>
+                </svg>
+                Bin Hire Agreement – Terms &amp; Conditions (PDF)
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="font-bold text-kiwi-900 mb-3">Not sure which bin you need?</h3>
+          <p class="text-sm text-gray-600 mb-4">Call or text us and we'll help you choose the right size for your household or business.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="tel:063688586" class="btn-primary text-sm py-2 px-4">
+              Call 06 368 8586
+            </a>
+            <a href={u('/contact-us/')} class="btn-secondary text-sm py-2 px-4">
+              Send a message
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

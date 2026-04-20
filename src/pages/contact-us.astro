@@ -1,0 +1,127 @@
+---
+import Layout from '../components/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { u } from '../utils/url';
+---
+
+<Layout
+  title="Contact Us"
+  description="Contact Kiwibins Horowhenua. Call 06 368 8586, text 021 203 3205, or send a message online. We service Levin, Ohau, Waitārere Beach, Manakau and Koputaroa."
+  canonicalPath="/contact-us/"
+>
+
+  <Hero
+    headline="Get in touch"
+    subheadline="Call us, send a text, or use the form below. We'll get back to you as soon as we can — usually the same day."
+    compact
+  />
+
+  <section class="py-16 bg-white" aria-labelledby="contact-heading">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="contact-heading" class="sr-only">Contact options</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+
+        <!-- Left: contact info -->
+        <div class="lg:col-span-2 space-y-6">
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-kiwi-600 mb-4">Phone &amp; Text</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-kiwi-100 rounded-xl flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-5 h-5 text-kiwi-700" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-kiwi-900 text-sm">General enquiries</p>
+                  <a href="tel:063688586" class="text-kiwi-600 hover:text-kiwi-800 text-lg font-bold transition-colors">
+                    06 368 8586
+                  </a>
+                  <p class="text-xs text-gray-500 mt-0.5">Leave a message and we'll call back</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center shrink-0" aria-hidden="true">
+                  <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-kiwi-900 text-sm">Text for drum empties</p>
+                  <a href="sms:0212033205" class="text-kiwi-600 hover:text-kiwi-800 text-lg font-bold transition-colors">
+                    021 203 3205
+                  </a>
+                  <p class="text-xs text-gray-500 mt-0.5">Text only – drum emptying requests</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-kiwi-600 mb-4">Email</h3>
+            <a
+              href="mailto:info@kiwibinshorowhenua.co.nz"
+              class="text-kiwi-700 hover:text-kiwi-900 font-medium text-sm transition-colors break-all"
+            >
+              info@kiwibinshorowhenua.co.nz
+            </a>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-kiwi-600 mb-4">Address</h3>
+            <address class="text-sm text-gray-600 not-italic leading-relaxed">
+              30 Queen Street West<br />
+              Levin 5510<br />
+              New Zealand
+            </address>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-kiwi-600 mb-4">Follow us</h3>
+            <a
+              href="https://www.facebook.com/p/Kiwi-Bins-Horowhenua-100067678432728/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm text-kiwi-700 hover:text-kiwi-900 font-medium transition-colors"
+              aria-label="Follow Kiwibins on Facebook"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              @kiwibins on Facebook
+            </a>
+          </div>
+
+          <!-- Quick links -->
+          <div class="pt-4 border-t border-gray-100">
+            <p class="text-xs text-gray-400 mb-3">Quick links</p>
+            <div class="flex flex-wrap gap-2">
+              <a href={u('/bins-and-prices/')} class="text-xs bg-kiwi-50 text-kiwi-700 px-3 py-1.5 rounded-full hover:bg-kiwi-100 transition-colors font-medium">
+                Bins &amp; Prices
+              </a>
+              <a href={u('/when-and-where/')} class="text-xs bg-kiwi-50 text-kiwi-700 px-3 py-1.5 rounded-full hover:bg-kiwi-100 transition-colors font-medium">
+                Collection days
+              </a>
+              <a href={u('/faq/')} class="text-xs bg-kiwi-50 text-kiwi-700 px-3 py-1.5 rounded-full hover:bg-kiwi-100 transition-colors font-medium">
+                FAQ
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: contact form -->
+        <div class="lg:col-span-3">
+          <div class="card">
+            <h3 class="text-xl font-bold text-kiwi-900 mb-1">Send us a message</h3>
+            <p class="text-sm text-gray-500 mb-6">Fill in the form and we'll get back to you as soon as possible.</p>
+            <ContactForm />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,63 @@
+---
+import Layout from '../../components/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import OrderForm from '../../components/OrderForm.astro';
+import { u } from '../../utils/url';
+
+const pricing = [
+  { value: 'weekly-9', label: 'Weekly', price: '$9.00 / week' },
+  { value: 'fortnightly-18', label: 'Fortnightly', price: '$18.00 / fortnight' },
+  { value: 'monthly-39', label: 'Monthly', price: '$39.00 / month' },
+  { value: '3monthly-110', label: '3 Monthly', price: '$110.00', saving: 'Save 5%' },
+  { value: '6monthly-220', label: '6 Monthly', price: '$220.00', saving: 'Save 10%' },
+  { value: 'yearly-445', label: 'Yearly', price: '$445.00', saving: 'Save 15%' },
+];
+---
+
+<Layout
+  title="Order a 120L Wheelie Bin"
+  description="Order your 120L Kiwibins Horowhenua wheelie bin. Weekly collection from $9. Delivered within 3 days."
+  canonicalPath="/order/120l/"
+>
+
+  <Hero
+    headline="Order your 120L Wheelie Bin"
+    subheadline="Ideal for 1–2 person households or waste-conscious homes. Choose your payment frequency and fill in your details below."
+    compact
+  />
+
+  <section class="py-14 bg-gray-50" aria-labelledby="order-heading">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Back link -->
+      <a href={u('/bins-and-prices/')} class="inline-flex items-center gap-1.5 text-sm text-kiwi-600 hover:text-kiwi-800 mb-8 transition-colors font-medium">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+        </svg>
+        Back to Bins &amp; Prices
+      </a>
+
+      <h2 id="order-heading" class="sr-only">120L bin order form</h2>
+
+      <!-- Bin summary -->
+      <div class="card bg-kiwi-50 border-kiwi-200 mb-6">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 bg-kiwi-600 rounded-xl flex items-center justify-center text-white shrink-0" aria-hidden="true">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-bold text-kiwi-900">120L Wheelie Bin</p>
+            <p class="text-sm text-gray-600">Weekly kerbside collection · From $9/week · Delivered within 3 days</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <OrderForm binSize="120L" pricing={pricing} />
+      </div>
+    </div>
+  </section>
+
+</Layout>

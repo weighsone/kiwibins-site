@@ -1,0 +1,137 @@
+{
+  "type": "FeatureCollection",
+  "_disclaimer": "Area boundaries are approximate and indicative only. For exact address confirmation contact Kiwibins Horowhenua on 06 368 8586.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "service-boundary",
+        "name": "Kiwibins Service Area",
+        "description": "Weekly rubbish pickups from the Manawatu River Bridge, west to Waitārere Beach, east to Potts Road and down to Manakau.",
+        "stroke": "#15803d",
+        "stroke-width": 3,
+        "stroke-opacity": 0.8,
+        "fill": "#16a34a",
+        "fill-opacity": 0.08
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [175.170, -40.530],
+          [175.430, -40.520],
+          [175.450, -40.640],
+          [175.370, -40.780],
+          [175.200, -40.780],
+          [175.160, -40.680],
+          [175.160, -40.590],
+          [175.170, -40.530]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "levin-purple",
+        "name": "Levin – Purple Zone",
+        "day": "Tuesday",
+        "frequency": "Weekly",
+        "marker-color": "#7c3aed",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.272, -40.630]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "levin-orange",
+        "name": "Levin – Orange Zone",
+        "day": "Wednesday",
+        "frequency": "Weekly",
+        "marker-color": "#ea580c",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.284, -40.634]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "levin-green",
+        "name": "Levin – Green Zone",
+        "day": "Thursday",
+        "frequency": "Weekly",
+        "marker-color": "#16a34a",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.293, -40.628]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ohau",
+        "name": "Ohau",
+        "day": "Wednesday",
+        "frequency": "Weekly",
+        "marker-color": "#0ea5e9",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.260, -40.659]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "waitarere-beach",
+        "name": "Waitārere Beach",
+        "day": "Monday",
+        "frequency": "Weekly",
+        "marker-color": "#0284c7",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.174, -40.582]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "manakau",
+        "name": "Manakau",
+        "day": "Wednesday (alternate)",
+        "frequency": "Fortnightly",
+        "marker-color": "#d97706",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.209, -40.759]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "koputaroa",
+        "name": "Koputaroa",
+        "day": "Wednesday (alternate)",
+        "frequency": "Fortnightly",
+        "marker-color": "#b45309",
+        "marker-symbol": "circle"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [175.229, -40.703]
+      }
+    }
+  ]
+}

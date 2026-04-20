@@ -1,0 +1,150 @@
+---
+import Layout from '../components/Layout.astro';
+import Hero from '../components/Hero.astro';
+import FAQItem from '../components/FAQItem.astro';
+import { u } from '../utils/url';
+---
+
+<Layout
+  title="FAQ – Frequently Asked Questions"
+  description="Answers to common questions about Kiwibins Horowhenua rubbish collection – bin-out times, weight limits, what can't go in, bin care, and delivery times."
+  canonicalPath="/faq/"
+>
+
+  <Hero
+    headline="Frequently Asked Questions"
+    subheadline="Everything you need to know about your kiwibin. Can't find your answer? Give us a call."
+    compact
+  />
+
+  <section class="py-14 bg-white" aria-labelledby="faq-heading">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="faq-heading" class="sr-only">Frequently Asked Questions</h2>
+
+      <div
+        class="space-y-3"
+        itemscope
+        itemtype="https://schema.org/FAQPage"
+      >
+
+        <FAQItem question="When do I have to put my wheelie bin out?" id="bin-out-time" defaultOpen>
+          <p>
+            Please have your kiwibin kerbside, <strong>facing the street, by 7am</strong> on your collection day. Our trucks start early and we can't come back if you miss us.
+          </p>
+          <p class="mt-2">Check the <a href={u('/when-and-where/')} class="text-kiwi-600 hover:underline font-medium">When &amp; Where page</a> to confirm your collection day.</p>
+        </FAQItem>
+
+        <FAQItem question="How soon can I get my bin?" id="delivery-time">
+          <p>We aim to deliver your kiwibin within <strong>3 working days</strong> of your order being confirmed. We'll be in touch to arrange delivery.</p>
+          <p class="mt-2">Ready to order? <a href={u('/bins-and-prices/')} class="text-kiwi-600 hover:underline font-medium">See our bins and pricing →</a></p>
+        </FAQItem>
+
+        <FAQItem question="What is the maximum weight I can put in my kiwibin?" id="weight-limits">
+          <ul class="space-y-1.5 mt-1">
+            <li class="flex items-center gap-2">
+              <span class="w-4 h-4 bg-kiwi-100 text-kiwi-700 rounded-full text-xs flex items-center justify-center font-bold" aria-hidden="true">✓</span>
+              <span><strong>120-litre kiwibin:</strong> maximum 15 kg</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="w-4 h-4 bg-kiwi-100 text-kiwi-700 rounded-full text-xs flex items-center justify-center font-bold" aria-hidden="true">✓</span>
+              <span><strong>240-litre kiwibin:</strong> maximum 30 kg</span>
+            </li>
+          </ul>
+          <p class="mt-3 text-gray-500">The lid of your bin must be able to shut. If extra bags are placed on top, they will be left to go back in the bin for next week.</p>
+        </FAQItem>
+
+        <FAQItem question="What can't I put in my kiwibin?" id="prohibited-items">
+          <p class="mb-3">To keep our team safe and our truck running smoothly, the following items <strong>cannot</strong> go in your kiwibin:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {[
+              'Toxic, dangerous or hazardous waste (paint, oil, batteries)',
+              'Hot ashes',
+              'Liquid waste',
+              'Engine/car parts and tyres',
+              'Steel, metal, or aluminium sheets or poles',
+              'Concrete, earth, bricks, stones, sand, soil, or clay',
+              'Large branches or wood pieces',
+              'Timber offcuts',
+              'Whiteware and defunct appliances',
+              'Glass or sharp objects (must be double-wrapped if necessary)',
+            ].map((item) => (
+              <div class="flex items-start gap-2 text-sm text-gray-700">
+                <svg class="w-4 h-4 text-red-400 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+                {item}
+              </div>
+            ))}
+          </div>
+          <p class="mt-3 text-sm text-gray-500">Download our <a href={u('/assets/pdfs/bin-care-sheet.pdf')} class="text-kiwi-600 hover:underline" download>Wheelie Bin TLC guide (PDF)</a> for the full list.</p>
+        </FAQItem>
+
+        <FAQItem question="How do I show my kiwibin some TLC?" id="bin-care">
+          <p class="mb-3">A little care goes a long way to keeping your bin in good shape:</p>
+          <ul class="space-y-2">
+            {[
+              'Wrap or bag your rubbish before putting it in the bin',
+              'Keep the bin clean – give it a rinse occasionally',
+              'Avoid compacting rubbish tightly inside',
+              'Only put in household rubbish and green waste',
+              'Don\'t over-fill – the lid must be able to shut',
+            ].map((tip) => (
+              <li class="flex items-start gap-2 text-sm text-gray-700">
+                <svg class="w-4 h-4 text-kiwi-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                {tip}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-3 text-sm text-gray-500">
+            Download our full <a href={u('/assets/pdfs/bin-care-sheet.pdf')} class="text-kiwi-600 hover:underline" download>Wheelie Bin TLC care sheet (PDF)</a> for more tips.
+          </p>
+        </FAQItem>
+
+        <FAQItem question="What payment options are available?" id="payment">
+          <p>We offer flexible payment frequencies to suit your budget:</p>
+          <ul class="mt-3 space-y-1.5 text-sm text-gray-700">
+            <li>Weekly, Fortnightly, Monthly, 3-Monthly, 6-Monthly, or Yearly</li>
+            <li>Save <strong>5%</strong> when paying 3-monthly, <strong>10%</strong> at 6-monthly, or <strong>15%</strong> when paying yearly</li>
+            <li>Direct debit or internet banking accepted</li>
+            <li>44-gallon drum service: cash on the day, or direct debit/internet payment</li>
+          </ul>
+        </FAQItem>
+
+        <FAQItem question="I'm not sure which Levin zone I'm in — how do I find out?" id="levin-zones">
+          <p>Levin is split into three collection zones (Purple, Orange, and Green) with different days. The easiest way to find your zone is to:</p>
+          <ul class="mt-2 space-y-1.5 text-sm text-gray-700 list-disc list-inside">
+            <li>Check the colour sticker on your existing kiwibin lid</li>
+            <li>Use the <a href={u('/when-and-where/')} class="text-kiwi-600 hover:underline font-medium">When &amp; Where page</a> area selector</li>
+            <li>Call us on <a href="tel:063688586" class="text-kiwi-600 hover:underline">06 368 8586</a> and we'll look it up for you</li>
+          </ul>
+        </FAQItem>
+
+        <FAQItem question="Does the drum service work the same way as wheelie bin collection?" id="drum-service">
+          <p>
+            The 44-gallon drum service is a <strong>text-based booking system</strong> — simply text <a href="sms:0212033205" class="text-kiwi-600 hover:underline">021 203 3205</a> to request an empty. Our man Eric has over 25 years of experience and will take care of it.
+          </p>
+          <p class="mt-2 text-sm text-gray-500">Payment is cash on the day or by direct debit/internet banking. $23 per empty.</p>
+        </FAQItem>
+
+      </div>
+
+      <!-- Still got questions -->
+      <div class="mt-12 card bg-kiwi-50 border-kiwi-200 text-center">
+        <h3 class="font-bold text-kiwi-900 text-lg mb-2">Still got questions?</h3>
+        <p class="text-gray-600 text-sm mb-5">Give us a call or send us a message — we're always happy to help.</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="tel:063688586" class="btn-primary text-sm py-2.5 px-5">
+            Call 06 368 8586
+          </a>
+          <a href={u('/contact-us/')} class="btn-secondary text-sm py-2.5 px-5">
+            Send a message
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

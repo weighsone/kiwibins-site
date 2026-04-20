@@ -1,0 +1,17 @@
+# Build output
+dist/
+.astro/
+
+# Node modules
+node_modules/
+
+# Environment variables (never commit secrets)
+.env
+.env.local
+.env.production
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+*.swp

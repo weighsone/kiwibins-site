@@ -1,0 +1,82 @@
+{
+  "areas": [
+    {
+      "id": "levin-purple",
+      "name": "Levin – Purple Zone",
+      "day": "Tuesday",
+      "frequency": "Weekly",
+      "color": "#7c3aed",
+      "binColor": "Purple",
+      "notes": "Have your kiwibin kerbside by 7am. Purple-zone Levin streets – check your bin lid colour or contact us if unsure which zone you're in.",
+      "lat": -40.630,
+      "lng": 175.272
+    },
+    {
+      "id": "levin-orange",
+      "name": "Levin – Orange Zone",
+      "day": "Wednesday",
+      "frequency": "Weekly",
+      "color": "#ea580c",
+      "binColor": "Orange",
+      "notes": "Have your kiwibin kerbside by 7am. Orange-zone Levin streets.",
+      "lat": -40.634,
+      "lng": 175.284
+    },
+    {
+      "id": "levin-green",
+      "name": "Levin – Green Zone",
+      "day": "Thursday",
+      "frequency": "Weekly",
+      "color": "#16a34a",
+      "binColor": "Green",
+      "notes": "Have your kiwibin kerbside by 7am. Green-zone Levin streets.",
+      "lat": -40.628,
+      "lng": 175.293
+    },
+    {
+      "id": "ohau",
+      "name": "Ohau",
+      "day": "Wednesday",
+      "frequency": "Weekly",
+      "color": "#0ea5e9",
+      "binColor": "Blue/Standard",
+      "notes": "Have your kiwibin kerbside by 7am.",
+      "lat": -40.659,
+      "lng": 175.260
+    },
+    {
+      "id": "waitarere-beach",
+      "name": "Waitārere Beach",
+      "day": "Monday",
+      "frequency": "Weekly",
+      "color": "#0284c7",
+      "binColor": "Standard",
+      "notes": "Have your kiwibin kerbside by 7am.",
+      "lat": -40.582,
+      "lng": 175.174
+    },
+    {
+      "id": "manakau",
+      "name": "Manakau",
+      "day": "Wednesday (alternate)",
+      "frequency": "Fortnightly",
+      "color": "#d97706",
+      "binColor": "Standard",
+      "notes": "Fortnightly collection on alternate Wednesdays. Two kiwibins provided. As the area grows we'll move to weekly service – contact us for your next collection date.",
+      "lat": -40.759,
+      "lng": 175.209
+    },
+    {
+      "id": "koputaroa",
+      "name": "Koputaroa",
+      "day": "Wednesday (alternate)",
+      "frequency": "Fortnightly",
+      "color": "#b45309",
+      "binColor": "Standard",
+      "notes": "Fortnightly collection on alternate Wednesdays. Two kiwibins provided. Contact us for your next collection date.",
+      "lat": -40.703,
+      "lng": 175.229
+    }
+  ],
+  "globalNote": "Get your kiwibin kerbside by 7am on collection day. Public holidays may affect your collection – check our Facebook page @kiwibins for updates."
+}

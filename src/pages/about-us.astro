@@ -1,0 +1,135 @@
+---
+import Layout from '../components/Layout.astro';
+import Hero from '../components/Hero.astro';
+import { u } from '../utils/url';
+---
+
+<Layout
+  title="About Us"
+  description="Kiwibins Horowhenua – a local, family-run rubbish collection company owned by Adam and Judith Bignell. Serving Levin and Horowhenua since 2020."
+  canonicalPath="/about-us/"
+>
+
+  <Hero
+    headline="About Kiwibins Horowhenua"
+    subheadline="A small team. Big on service. Proudly local."
+    compact
+  />
+
+  <!-- Story section -->
+  <section class="py-16 bg-white" aria-labelledby="story-heading">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 id="story-heading" class="section-heading">Levin born and bred</h2>
+          <div class="mt-5 space-y-4 text-gray-600 leading-relaxed">
+            <p>
+              Kiwibins Horowhenua is a local, family-run rubbish collection company owned and operated by <strong class="text-kiwi-900">Adam and Judith Bignell</strong>. We took over the business in August 2020 — previously known as <em>Levin Mini Bins</em> — and put our own stamp on it with a fresh name and a renewed focus on community service.
+            </p>
+            <p>
+              Adam is a Levin boy born and bred. With family roots firmly planted in Horowhenua, we're not a faceless company with a call centre — we're your neighbours. When you call us, you're talking directly with the people who run the trucks.
+            </p>
+            <p>
+              We've got a small team that's big on service. Our owners are in the business day to day, so you know you'll always be well looked after.
+            </p>
+          </div>
+        </div>
+
+        <!-- Values card -->
+        <div class="space-y-4">
+          {[
+            {
+              icon: '🏘️',
+              title: 'Community first',
+              body: 'We\'re about serving Horowhenua — not maximising profits. Supporting local is in our DNA.',
+            },
+            {
+              icon: '📞',
+              title: 'No call centres',
+              body: 'Every call goes directly to us. No hold music, no press-1-for-billing. Just a real conversation with the owners.',
+            },
+            {
+              icon: '🤝',
+              title: 'You deal with the boss',
+              body: 'When you contact Kiwibins, you\'re dealing with the decision-makers — no middlemen, no delays.',
+            },
+            {
+              icon: '🌱',
+              title: 'Growing with our community',
+              body: 'We started in Levin and we\'re growing into new areas as demand builds. Manakau and Koputaroa are already on our route.',
+            },
+          ].map(({ icon, title, body }) => (
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-kiwi-50 border border-kiwi-100">
+              <span class="text-2xl shrink-0" aria-hidden="true">{icon}</span>
+              <div>
+                <h3 class="font-bold text-kiwi-900 text-sm mb-0.5">{title}</h3>
+                <p class="text-sm text-gray-600">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eric section -->
+  <section class="py-14 bg-kiwi-50 border-y border-kiwi-100" aria-labelledby="eric-heading">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="card max-w-2xl mx-auto text-center">
+        <div class="w-16 h-16 bg-kiwi-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl" aria-hidden="true">
+          🚛
+        </div>
+        <h2 id="eric-heading" class="text-xl font-bold text-kiwi-900 mb-3">Meet Eric – our drum specialist</h2>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Our 44-gallon drum service is in very capable hands. Eric has been in the rubbish collection game for <strong>25+ years</strong> and runs our text-based drum emptying service. Just text <a href="sms:0212033205" class="text-kiwi-600 hover:underline font-semibold">021 203 3205</a> and he'll sort it for you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service area -->
+  <section class="py-14 bg-white" aria-labelledby="service-area-heading">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 id="service-area-heading" class="section-heading mb-4">Our service area</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        We service the Horowhenua region — weekly rubbish pickups from the Manawatu River Bridge, west to Waitārere Beach, east to Potts Road and south to Manakau. Serving Levin, Ohau, Waitārere Beach, Manakau, and Koputaroa.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href={u('/when-and-where/')} class="btn-primary">
+          View collection schedule
+        </a>
+        <a href={u('/contact-us/')} class="btn-secondary">
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact details -->
+  <section class="py-14 bg-kiwi-900 text-white" aria-labelledby="contact-details-heading">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 id="contact-details-heading" class="text-2xl font-extrabold text-white text-center mb-10">Get in touch</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        {[
+          { label: 'Phone', value: '06 368 8586', href: 'tel:063688586', icon: '📞' },
+          { label: 'Text (drums)', value: '021 203 3205', href: 'sms:0212033205', icon: '💬' },
+          { label: 'Email', value: 'info@kiwibinshorowhenua.co.nz', href: 'mailto:info@kiwibinshorowhenua.co.nz', icon: '✉️' },
+          { label: 'Address', value: '30 Queen Street West, Levin 5510', href: undefined, icon: '📍' },
+        ].map(({ label, value, href, icon }) => (
+          <div class="text-center">
+            <div class="text-3xl mb-2" aria-hidden="true">{icon}</div>
+            <div class="text-xs font-semibold text-kiwi-400 uppercase tracking-wider mb-1">{label}</div>
+            {href ? (
+              <a href={href} class="text-kiwi-100 hover:text-white text-sm font-medium transition-colors break-all">
+                {value}
+              </a>
+            ) : (
+              <span class="text-kiwi-100 text-sm">{value}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>

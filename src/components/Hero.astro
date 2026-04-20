@@ -1,0 +1,72 @@
+---
+import { u } from '../utils/url';
+
+interface Props {
+  headline: string;
+  subheadline?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  badge?: string;
+  compact?: boolean;
+}
+
+const {
+  headline,
+  subheadline,
+  primaryCta,
+  secondaryCta,
+  badge,
+  compact = false,
+} = Astro.props;
+---
+
+<section
+  class:list={[
+    'relative bg-gradient-to-br from-kiwi-900 via-kiwi-800 to-kiwi-700 text-white overflow-hidden',
+    compact ? 'py-12 md:py-16' : 'py-20 md:py-28',
+  ]}
+  aria-label="Page hero"
+>
+  <!-- Background decorative shapes -->
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/5 rounded-full"></div>
+    <div class="absolute bottom-0 -left-16 w-72 h-72 bg-kiwi-600/30 rounded-full"></div>
+    <div class="absolute top-1/2 left-1/3 w-48 h-48 bg-white/3 rounded-full -translate-y-1/2"></div>
+  </div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-3xl">
+      {badge && (
+        <span class="inline-block bg-kiwi-600/60 text-kiwi-100 text-xs font-semibold px-3 py-1 rounded-full mb-5 border border-kiwi-500/40">
+          {badge}
+        </span>
+      )}
+      <h1 class:list={['font-extrabold leading-tight', compact ? 'text-3xl md:text-4xl' : 'text-4xl md:text-5xl lg:text-6xl']}>
+        {headline}
+      </h1>
+      {subheadline && (
+        <p class:list={['text-kiwi-200 mt-4 leading-relaxed', compact ? 'text-base md:text-lg' : 'text-lg md:text-xl max-w-2xl']}>
+          {subheadline}
+        </p>
+      )}
+      {(primaryCta || secondaryCta) && (
+        <div class="mt-8 flex flex-wrap gap-3">
+          {primaryCta && (
+            <a href={primaryCta.href} class="btn-orange">
+              {primaryCta.label}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+              </svg>
+            </a>
+          )}
+          {secondaryCta && (
+            <a href={secondaryCta.href} class="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg border-2 border-white/30 hover:bg-white/10 transition-colors duration-150">
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      )}
+      <slot />
+    </div>
+  </div>
+</section>

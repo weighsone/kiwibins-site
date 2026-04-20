@@ -1,0 +1,149 @@
+---
+import { u } from '../utils/url';
+
+const navLinks = [
+  { href: u('/'), label: 'Home' },
+  { href: u('/bins-and-prices/'), label: 'Bins & Prices' },
+  { href: u('/when-and-where/'), label: 'When & Where' },
+  { href: u('/faq/'), label: 'FAQ' },
+  { href: u('/about-us/'), label: 'About Us' },
+  { href: u('/contact-us/'), label: 'Contact Us' },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href === u('/')) return currentPath === u('/') || currentPath === u('/');
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm">
+  <!-- Top contact bar -->
+  <div class="bg-kiwi-900 text-kiwi-100 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex items-center justify-between gap-4">
+      <span class="hidden sm:inline">Levin's local bin company &mdash; big on service</span>
+      <div class="flex items-center gap-4 ml-auto">
+        <a href="tel:063688586" class="flex items-center gap-1.5 hover:text-white transition-colors" aria-label="Phone 06 368 8586">
+          <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+          </svg>
+          06 368 8586
+        </a>
+        <a href="mailto:info@kiwibinshorowhenua.co.nz" class="flex items-center gap-1.5 hover:text-white transition-colors hidden sm:flex" aria-label="Email us">
+          <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          info@kiwibinshorowhenua.co.nz
+        </a>
+        <a
+          href="https://www.facebook.com/p/Kiwi-Bins-Horowhenua-100067678432728/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-white transition-colors"
+          aria-label="Follow us on Facebook"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href={u('/')} class="flex items-center gap-2.5 group" aria-label="Kiwibins Horowhenua – home">
+        <div class="w-9 h-9 bg-kiwi-600 rounded-lg flex items-center justify-center text-white group-hover:bg-kiwi-700 transition-colors shrink-0" aria-hidden="true">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="text-base font-bold text-kiwi-900 leading-tight">Kiwibins</div>
+          <div class="text-xs text-kiwi-600 font-medium leading-tight">Horowhenua</div>
+        </div>
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden lg:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150',
+              isActive(link.href)
+                ? 'bg-kiwi-50 text-kiwi-700'
+                : 'text-gray-600 hover:bg-gray-50 hover:text-kiwi-700',
+            ]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+        <a href={u('/bins-and-prices/')} class="ml-3 btn-primary text-sm py-2 px-4">
+          Get a Kiwibin
+        </a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        type="button"
+        class="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-kiwi-700 transition-colors"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="lg:hidden hidden border-t border-gray-100 py-3 pb-4" aria-label="Mobile navigation">
+      <div class="flex flex-col gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150',
+              isActive(link.href)
+                ? 'bg-kiwi-50 text-kiwi-700'
+                : 'text-gray-600 hover:bg-gray-50 hover:text-kiwi-700',
+            ]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+        <div class="pt-2 mt-1 border-t border-gray-100">
+          <a href={u('/bins-and-prices/')} class="btn-primary w-full text-sm py-2.5">
+            Get a Kiwibin
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  btn?.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+</script>

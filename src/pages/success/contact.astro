@@ -1,0 +1,48 @@
+---
+import Layout from '../../components/Layout.astro';
+import { u } from '../../utils/url';
+---
+
+<Layout
+  title="Message Sent – Thank You"
+  description="Your message has been sent to Kiwibins Horowhenua. We'll get back to you soon."
+  canonicalPath="/success/contact/"
+  noIndex
+>
+
+  <section class="min-h-[70vh] flex items-center justify-center py-20 bg-kiwi-50" aria-labelledby="success-heading">
+    <div class="max-w-md mx-auto px-4 sm:px-6 text-center">
+
+      <!-- Success icon -->
+      <div
+        class="w-20 h-20 bg-kiwi-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-fade-in"
+        aria-hidden="true"
+      >
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+        </svg>
+      </div>
+
+      <h1 id="success-heading" class="text-3xl font-extrabold text-kiwi-900 mb-3 animate-slide-up">
+        Message received!
+      </h1>
+      <p class="text-gray-600 mb-2 animate-slide-up">
+        Thanks for getting in touch with Kiwibins Horowhenua. We've received your message and will get back to you as soon as we can — usually the same day.
+      </p>
+      <p class="text-sm text-gray-500 mb-8 animate-slide-up">
+        For urgent matters, call us on <a href="tel:063688586" class="text-kiwi-600 hover:underline font-semibold">06 368 8586</a>.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center animate-slide-up">
+        <a href={u('/')} class="btn-primary">
+          Back to home
+        </a>
+        <a href={u('/bins-and-prices/')} class="btn-secondary">
+          View bins &amp; prices
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>

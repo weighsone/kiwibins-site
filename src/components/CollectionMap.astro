@@ -1,0 +1,276 @@
+---
+/**
+ * CollectionMap.astro
+ *
+ * Interactive Leaflet map showing Kiwibins service areas and collection schedule.
+ * - Area dropdown + schedule card (Option A: static hosting friendly)
+ * - Leaflet loaded via CDN (no bundler needed for static sites)
+ * - Mobile-first: map collapses to card view on small screens
+ * - All area data loaded from src/data/schedule.json at build time
+ * - GeoJSON loaded client-side from public/data/service-areas.geojson
+ */
+
+import schedule from '../data/schedule.json';
+const { areas, globalNote } = schedule;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<!-- Map area selector -->
+<div class="space-y-6">
+
+  <!-- Area selector -->
+  <div class="card">
+    <label for="area-select" class="form-label text-base">
+      Find your collection day
+    </label>
+    <div class="flex flex-col sm:flex-row gap-3 mt-1">
+      <select id="area-select" class="form-select flex-1" aria-label="Select your suburb or area">
+        <option value="">— Select your suburb or area —</option>
+        {areas.map((area) => (
+          <option value={area.id}>{area.name}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  <!-- Result card (hidden until area selected) -->
+  <div id="schedule-result" class="card hidden animate-slide-up" aria-live="polite" aria-atomic="true">
+    <div class="flex items-start gap-4">
+      <div id="result-icon" class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-white text-xl font-bold" aria-hidden="true">
+        📅
+      </div>
+      <div class="flex-1 min-w-0">
+        <h3 id="result-area" class="font-bold text-kiwi-900 text-lg"></h3>
+        <div class="mt-2 space-y-1.5">
+          <div class="flex items-center gap-2 text-sm text-gray-700">
+            <svg class="w-4 h-4 text-kiwi-600 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            <span><strong>Collection day:</strong> <span id="result-day"></span></span>
+          </div>
+          <div class="flex items-center gap-2 text-sm text-gray-700">
+            <svg class="w-4 h-4 text-kiwi-600 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+            </svg>
+            <span><strong>Frequency:</strong> <span id="result-freq"></span></span>
+          </div>
+          <p id="result-notes" class="text-sm text-gray-500 mt-2 italic"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile map toggle -->
+  <div class="sm:hidden">
+    <button
+      id="map-toggle"
+      type="button"
+      class="btn-secondary w-full text-sm"
+      aria-expanded="false"
+      aria-controls="map-wrapper"
+    >
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+        <path fill-rule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clip-rule="evenodd"/>
+      </svg>
+      View Service Area Map
+    </button>
+  </div>
+
+  <!-- Map container -->
+  <div id="map-wrapper" class="hidden sm:block">
+    <div class="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+      <div
+        id="collection-map"
+        style="height: 480px; width: 100%;"
+        role="application"
+        aria-label="Interactive map showing Kiwibins service areas across Horowhenua"
+      ></div>
+    </div>
+    <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
+      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+      </svg>
+      Map boundaries are indicative only. Contact us to confirm your collection day.
+    </p>
+  </div>
+
+  <!-- Schedule table (always visible) -->
+  <div class="card overflow-x-auto">
+    <h3 class="text-base font-bold text-kiwi-900 mb-4">Full Collection Schedule</h3>
+    <table class="w-full text-sm" role="table">
+      <thead>
+        <tr class="text-left border-b border-gray-200">
+          <th class="pb-3 pr-4 font-semibold text-gray-600" scope="col">Area</th>
+          <th class="pb-3 pr-4 font-semibold text-gray-600" scope="col">Day</th>
+          <th class="pb-3 font-semibold text-gray-600" scope="col">Frequency</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        {areas.map((area) => (
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="py-3 pr-4 text-gray-900 font-medium">
+              <span
+                class="inline-block w-2.5 h-2.5 rounded-full mr-2 align-middle"
+                style={`background-color: ${area.color}`}
+                aria-hidden="true"
+              ></span>
+              {area.name}
+            </td>
+            <td class="py-3 pr-4 text-gray-700">{area.day}</td>
+            <td class="py-3">
+              <span
+                class:list={[
+                  'inline-block text-xs font-medium px-2 py-0.5 rounded-full',
+                  area.frequency === 'Weekly'
+                    ? 'bg-kiwi-100 text-kiwi-700'
+                    : 'bg-amber-100 text-amber-700',
+                ]}
+              >
+                {area.frequency}
+              </span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="text-xs text-gray-500 mt-4 border-t border-gray-100 pt-3">{globalNote}</p>
+  </div>
+
+</div>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<!-- Client-side map initialisation -->
+<script define:vars={{ areas, base }}>
+  // Lazy-load Leaflet and init map when the container is in view
+  function initMap() {
+    if (window._mapInitialised) return;
+    window._mapInitialised = true;
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs=';
+    script.crossOrigin = '';
+    script.onload = () => {
+      const L = window.L;
+
+      const map = L.map('collection-map', {
+        center: [-40.640, 175.270],
+        zoom: 11,
+        zoomControl: true,
+        scrollWheelZoom: false,
+      });
+
+      // OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+      }).addTo(map);
+
+      // Track markers by area id
+      const markerMap = {};
+
+      // Add markers for each area
+      areas.forEach((area) => {
+        const circle = L.circleMarker([area.lat, area.lng], {
+          radius: 14,
+          fillColor: area.color,
+          color: '#fff',
+          weight: 3,
+          opacity: 1,
+          fillOpacity: 0.9,
+        }).addTo(map);
+
+        circle.bindPopup(`
+          <div style="min-width:180px">
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;color:#14532d">${area.name}</div>
+            <div style="font-size:13px;color:#374151"><strong>Day:</strong> ${area.day}</div>
+            <div style="font-size:13px;color:#374151;margin-top:2px"><strong>Frequency:</strong> ${area.frequency}</div>
+            <div style="font-size:12px;color:#6b7280;margin-top:6px;line-height:1.4">${area.notes}</div>
+          </div>
+        `);
+
+        markerMap[area.id] = circle;
+      });
+
+      // Wire up dropdown → fly to area + open popup
+      const select = document.getElementById('area-select');
+      select?.addEventListener('change', (e) => {
+        const id = e.target.value;
+        const marker = markerMap[id];
+        if (marker) {
+          map.flyTo(marker.getLatLng(), 13, { duration: 0.8 });
+          marker.openPopup();
+        }
+      });
+
+      // Load GeoJSON service boundary
+      fetch(`${base}/data/service-areas.geojson`)
+        .then((r) => r.json())
+        .then((geojson) => {
+          L.geoJSON(geojson, {
+            filter: (feature) => feature.properties.id === 'service-boundary',
+            style: (feature) => ({
+              color: feature.properties.stroke || '#15803d',
+              weight: feature.properties['stroke-width'] || 2,
+              opacity: feature.properties['stroke-opacity'] || 0.7,
+              fillColor: feature.properties.fill || '#16a34a',
+              fillOpacity: feature.properties['fill-opacity'] || 0.07,
+              dashArray: '6 4',
+            }),
+          }).addTo(map);
+        })
+        .catch(() => {/* GeoJSON not critical – fail silently */});
+    };
+    document.head.appendChild(script);
+  }
+
+  // Schedule result card logic (works even without map)
+  const areaData = Object.fromEntries(areas.map((a) => [a.id, a]));
+
+  document.getElementById('area-select')?.addEventListener('change', (e) => {
+    const id = e.target.value;
+    const result = document.getElementById('schedule-result');
+    if (!id) { result?.classList.add('hidden'); return; }
+
+    const area = areaData[id];
+    if (!area) return;
+
+    document.getElementById('result-area').textContent = area.name;
+    document.getElementById('result-day').textContent = area.day;
+    document.getElementById('result-freq').textContent = area.frequency;
+    document.getElementById('result-notes').textContent = area.notes;
+    document.getElementById('result-icon').style.backgroundColor = area.color;
+    result?.classList.remove('hidden');
+  });
+
+  // Mobile map toggle
+  const mapToggle = document.getElementById('map-toggle');
+  const mapWrapper = document.getElementById('map-wrapper');
+  mapToggle?.addEventListener('click', () => {
+    const expanded = mapToggle.getAttribute('aria-expanded') === 'true';
+    mapToggle.setAttribute('aria-expanded', String(!expanded));
+    mapWrapper?.classList.toggle('hidden');
+    mapToggle.textContent = expanded ? '🗺 View Service Area Map' : '✕ Hide Map';
+    if (!expanded) initMap();
+  });
+
+  // Auto-init map on desktop (sm breakpoint ≈ 640px)
+  if (window.matchMedia('(min-width: 640px)').matches) {
+    // Use IntersectionObserver for lazy init
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        initMap();
+        observer.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    const target = document.getElementById('collection-map');
+    if (target) observer.observe(target);
+  }
+</script>

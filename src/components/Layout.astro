@@ -1,0 +1,96 @@
+---
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import GoogleAnalytics from './GoogleAnalytics.astro';
+import '../styles/global.css';
+import { u } from '../utils/url';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = 'Kiwibins Horowhenua – Levin\'s local bin company. Affordable rubbish collection across Horowhenua. Weekly wheelie bin emptying for homes and businesses.',
+  ogImage = u('/assets/images/og-default.png'),
+  canonicalPath,
+  noIndex = false,
+} = Astro.props;
+
+const site = 'https://weighsone.github.io/kiwibins-site';
+const canonical = canonicalPath ? `${site}${canonicalPath}` : Astro.url.href;
+const fullTitle = title === 'Kiwibins Horowhenua' ? title : `${title} | Kiwibins Horowhenua`;
+---
+
+<!doctype html>
+<html lang="en-NZ">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary meta -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_NZ" />
+    <meta property="og:site_name" content="Kiwibins Horowhenua" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Structured data – Local Business -->
+    <script type="application/ld+json" is:inline>
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Kiwibins Horowhenua Ltd",
+      "description": "Levin's local bin company handling rubbish collection across Horowhenua.",
+      "url": "https://weighsone.github.io/kiwibins-site",
+      "telephone": "+6463688586",
+      "email": "info@kiwibinshorowhenua.co.nz",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "30 Queen Street West",
+        "addressLocality": "Levin",
+        "postalCode": "5510",
+        "addressCountry": "NZ"
+      },
+      "areaServed": "Horowhenua",
+      "sameAs": ["https://www.facebook.com/p/Kiwi-Bins-Horowhenua-100067678432728/"]
+    }
+    </script>
+
+    <!-- Favicon (placeholder – replace with actual favicon) -->
+    <link rel="icon" type="image/svg+xml" href={u('/favicon.svg')} />
+
+    <!-- Google Analytics -->
+    <GoogleAnalytics />
+  </head>
+  <body>
+    <!-- Skip link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <Header />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

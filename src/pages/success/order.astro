@@ -1,0 +1,68 @@
+---
+import Layout from '../../components/Layout.astro';
+import { u } from '../../utils/url';
+---
+
+<Layout
+  title="Order Received – Thank You"
+  description="Your bin order request has been received by Kiwibins Horowhenua. We'll confirm your delivery soon."
+  canonicalPath="/success/order/"
+  noIndex
+>
+
+  <section class="min-h-[70vh] flex items-center justify-center py-20 bg-kiwi-50" aria-labelledby="order-success-heading">
+    <div class="max-w-md mx-auto px-4 sm:px-6 text-center">
+
+      <!-- Success icon -->
+      <div
+        class="w-20 h-20 bg-kiwi-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-fade-in"
+        aria-hidden="true"
+      >
+        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+        </svg>
+      </div>
+
+      <h1 id="order-success-heading" class="text-3xl font-extrabold text-kiwi-900 mb-3 animate-slide-up">
+        Order received!
+      </h1>
+      <p class="text-gray-600 mb-2 animate-slide-up">
+        Awesome — we've got your kiwibin order request. We'll be in touch within one working day to confirm your delivery details.
+      </p>
+      <p class="text-sm text-gray-500 mb-4 animate-slide-up">
+        We aim to deliver your bin within <strong>3 working days</strong>. If you have any questions in the meantime, give us a call.
+      </p>
+
+      <!-- What happens next -->
+      <div class="card bg-white border-kiwi-200 text-left mb-8 animate-slide-up">
+        <p class="text-xs font-bold uppercase tracking-wider text-kiwi-600 mb-3">What happens next?</p>
+        <ol class="space-y-2.5">
+          {[
+            'We'll review your order and confirm your service area.',
+            'We'll contact you to arrange delivery (usually within 1 working day).',
+            'Your kiwibin will be delivered within 3 working days.',
+            'On your first collection day, have your bin kerbside by 7am.',
+          ].map((step, i) => (
+            <li class="flex items-start gap-3 text-sm text-gray-700">
+              <span class="w-5 h-5 bg-kiwi-100 text-kiwi-700 rounded-full text-xs flex items-center justify-center font-bold shrink-0 mt-0.5" aria-hidden="true">
+                {i + 1}
+              </span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center animate-slide-up">
+        <a href={u('/')} class="btn-primary">
+          Back to home
+        </a>
+        <a href={u('/faq/')} class="btn-secondary">
+          Read the FAQ
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</Layout>
