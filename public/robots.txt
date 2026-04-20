@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://weighsone.github.io/kiwibins-site/sitemap-index.xml
+Sitemap: https://weighsone.github.io/kiwibins-site/sitemap.xml
