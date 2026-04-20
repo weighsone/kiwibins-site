@@ -1,27 +1,43 @@
 ---
-/**
- * CollectionMap.astro
- *
- * Interactive Leaflet map showing Kiwibins service areas and collection schedule.
- * - Area dropdown + schedule card (Option A: static hosting friendly)
- * - Leaflet loaded via CDN (no bundler needed for static sites)
- * - Mobile-first: map collapses to card view on small screens
- * - All area data loaded from src/data/schedule.json at build time
- * - GeoJSON loaded client-side from public/data/service-areas.geojson
- */
-
 import schedule from '../data/schedule.json';
 const { areas, globalNote } = schedule;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
-<!-- Map area selector -->
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin="anonymous"
+/>
+
 <div class="space-y-6">
 
-  <!-- Area selector -->
+  <!-- Address lookup -->
+  <div class="card">
+    <label class="form-label text-base" for="address-input">Find your collection area</label>
+    <p class="text-sm text-gray-500 mb-3">Type your street address to find out which zone you're in and when we collect.</p>
+    <div class="flex gap-2">
+      <input
+        type="text"
+        id="address-input"
+        class="form-input flex-1"
+        placeholder="e.g. 42 Queen Street, Levin"
+        autocomplete="off"
+        aria-label="Street address"
+      />
+      <button id="address-search" type="button" class="btn-primary shrink-0 px-5">
+        Find
+      </button>
+    </div>
+    <div id="address-result" class="mt-3 hidden text-sm" role="alert" aria-live="polite"></div>
+  </div>
+
+  <!-- Or pick from dropdown -->
   <div class="card">
     <label for="area-select" class="form-label text-base">
-      Find your collection day
+      Or select your suburb
     </label>
     <div class="flex flex-col sm:flex-row gap-3 mt-1">
       <select id="area-select" class="form-select flex-1" aria-label="Select your suburb or area">
@@ -36,8 +52,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <!-- Result card (hidden until area selected) -->
   <div id="schedule-result" class="card hidden animate-slide-up" aria-live="polite" aria-atomic="true">
     <div class="flex items-start gap-4">
-      <div id="result-icon" class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-white text-xl font-bold" aria-hidden="true">
-        📅
+      <div id="result-icon" class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 text-white" aria-hidden="true">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+        </svg>
       </div>
       <div class="flex-1 min-w-0">
         <h3 id="result-area" class="font-bold text-kiwi-900 text-lg"></h3>
@@ -94,7 +112,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     </p>
   </div>
 
-  <!-- Schedule table (always visible) -->
+  <!-- Schedule table -->
   <div class="card overflow-x-auto">
     <h3 class="text-base font-bold text-kiwi-900 mb-4">Full Collection Schedule</h3>
     <table class="w-full text-sm" role="table">
@@ -138,119 +156,190 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 </div>
 
-<!-- Leaflet CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
-/>
-
-<!-- Client-side map initialisation -->
 <script define:vars={{ areas, base }}>
-  // Lazy-load Leaflet and init map when the container is in view
-  function initMap() {
-    if (window._mapInitialised) return;
-    window._mapInitialised = true;
-
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs=';
-    script.crossOrigin = '';
-    script.onload = () => {
-      const L = window.L;
-
-      const map = L.map('collection-map', {
-        center: [-40.640, 175.270],
-        zoom: 11,
-        zoomControl: true,
-        scrollWheelZoom: false,
-      });
-
-      // OpenStreetMap tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 18,
-      }).addTo(map);
-
-      // Track markers by area id
-      const markerMap = {};
-
-      // Add markers for each area
-      areas.forEach((area) => {
-        const circle = L.circleMarker([area.lat, area.lng], {
-          radius: 14,
-          fillColor: area.color,
-          color: '#fff',
-          weight: 3,
-          opacity: 1,
-          fillOpacity: 0.9,
-        }).addTo(map);
-
-        circle.bindPopup(`
-          <div style="min-width:180px">
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;color:#14532d">${area.name}</div>
-            <div style="font-size:13px;color:#374151"><strong>Day:</strong> ${area.day}</div>
-            <div style="font-size:13px;color:#374151;margin-top:2px"><strong>Frequency:</strong> ${area.frequency}</div>
-            <div style="font-size:12px;color:#6b7280;margin-top:6px;line-height:1.4">${area.notes}</div>
-          </div>
-        `);
-
-        markerMap[area.id] = circle;
-      });
-
-      // Wire up dropdown → fly to area + open popup
-      const select = document.getElementById('area-select');
-      select?.addEventListener('change', (e) => {
-        const id = e.target.value;
-        const marker = markerMap[id];
-        if (marker) {
-          map.flyTo(marker.getLatLng(), 13, { duration: 0.8 });
-          marker.openPopup();
-        }
-      });
-
-      // Load GeoJSON service boundary
-      fetch(`${base}/data/service-areas.geojson`)
-        .then((r) => r.json())
-        .then((geojson) => {
-          L.geoJSON(geojson, {
-            filter: (feature) => feature.properties.id === 'service-boundary',
-            style: (feature) => ({
-              color: feature.properties.stroke || '#15803d',
-              weight: feature.properties['stroke-width'] || 2,
-              opacity: feature.properties['stroke-opacity'] || 0.7,
-              fillColor: feature.properties.fill || '#16a34a',
-              fillOpacity: feature.properties['fill-opacity'] || 0.07,
-              dashArray: '6 4',
-            }),
-          }).addTo(map);
-        })
-        .catch(() => {/* GeoJSON not critical – fail silently */});
-    };
-    document.head.appendChild(script);
+  // ── Haversine distance (km) ──────────────────────────────────────────────
+  function haversine(lat1, lng1, lat2, lng2) {
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat / 2) ** 2
+      + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   }
 
-  // Schedule result card logic (works even without map)
+  function findNearestArea(lat, lng) {
+    let nearest = null;
+    let minDist = Infinity;
+    for (const area of areas) {
+      const d = haversine(lat, lng, area.lat, area.lng);
+      if (d < minDist) { minDist = d; nearest = area; }
+    }
+    return { area: nearest, distance: minDist };
+  }
+
+  // ── Show result card ─────────────────────────────────────────────────────
   const areaData = Object.fromEntries(areas.map((a) => [a.id, a]));
 
-  document.getElementById('area-select')?.addEventListener('change', (e) => {
-    const id = e.target.value;
-    const result = document.getElementById('schedule-result');
-    if (!id) { result?.classList.add('hidden'); return; }
-
-    const area = areaData[id];
-    if (!area) return;
-
+  function showAreaResult(area) {
     document.getElementById('result-area').textContent = area.name;
     document.getElementById('result-day').textContent = area.day;
     document.getElementById('result-freq').textContent = area.frequency;
     document.getElementById('result-notes').textContent = area.notes;
     document.getElementById('result-icon').style.backgroundColor = area.color;
-    result?.classList.remove('hidden');
+    document.getElementById('schedule-result').classList.remove('hidden');
+
+    if (window._leafletMap && window._leafletMarkers && window._leafletMarkers[area.id]) {
+      window._leafletMap.flyTo(window._leafletMarkers[area.id].getLatLng(), 13, { duration: 0.8 });
+      window._leafletMarkers[area.id].openPopup();
+    }
+  }
+
+  // ── Dropdown ─────────────────────────────────────────────────────────────
+  document.getElementById('area-select')?.addEventListener('change', (e) => {
+    const id = e.target.value;
+    const result = document.getElementById('schedule-result');
+    if (!id) { result?.classList.add('hidden'); return; }
+    const area = areaData[id];
+    if (area) showAreaResult(area);
   });
 
-  // Mobile map toggle
+  // ── Address lookup ───────────────────────────────────────────────────────
+  async function doAddressLookup() {
+    const query = document.getElementById('address-input').value.trim();
+    if (!query) return;
+
+    const resultEl = document.getElementById('address-result');
+    const btn = document.getElementById('address-search');
+    btn.disabled = true;
+    btn.textContent = 'Searching...';
+    resultEl.className = 'mt-3 text-sm text-gray-500';
+    resultEl.textContent = 'Looking up your address...';
+
+    try {
+      const url = 'https://nominatim.openstreetmap.org/search?'
+        + new URLSearchParams({
+          q: query.includes('New Zealand') || query.includes('NZ') ? query : query + ', New Zealand',
+          format: 'json',
+          limit: '3',
+          countrycodes: 'nz',
+          addressdetails: '1',
+        });
+
+      const resp = await fetch(url, { headers: { 'Accept': 'application/json' } });
+      const results = await resp.json();
+
+      if (!results.length) {
+        resultEl.className = 'mt-3 text-sm text-orange-600 bg-orange-50 rounded-lg px-3 py-2';
+        resultEl.textContent = "We couldn't find that address. Try adding your suburb, e.g. \"42 Queen St, Levin\".";
+        return;
+      }
+
+      const { lat, lon } = results[0];
+      const { area, distance } = findNearestArea(parseFloat(lat), parseFloat(lon));
+
+      if (distance > 20) {
+        resultEl.className = 'mt-3 text-sm text-orange-600 bg-orange-50 rounded-lg px-3 py-2';
+        resultEl.textContent = "That address looks outside our service area. Call us on 06 368 8586 and we'll confirm.";
+        return;
+      }
+
+      resultEl.className = 'mt-3 text-sm text-kiwi-700 bg-kiwi-50 rounded-lg px-3 py-2';
+      resultEl.textContent = '';
+      resultEl.innerHTML = `Your nearest collection zone is <strong>${area.name}</strong> &mdash; collected on <strong>${area.day}</strong> (${area.frequency}). Scroll down to see the map.`;
+      showAreaResult(area);
+
+    } catch {
+      resultEl.className = 'mt-3 text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2';
+      resultEl.textContent = 'Address lookup is temporarily unavailable. Use the dropdown below or call us.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Find';
+    }
+  }
+
+  document.getElementById('address-search')?.addEventListener('click', doAddressLookup);
+  document.getElementById('address-input')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') doAddressLookup();
+  });
+
+  // ── Leaflet map ──────────────────────────────────────────────────────────
+  function createMap() {
+    const L = window.L;
+    if (!L) return;
+
+    const mapEl = document.getElementById('collection-map');
+    if (!mapEl || mapEl._leaflet_id) return; // already initialised
+
+    const map = L.map('collection-map', {
+      center: [-40.640, 175.270],
+      zoom: 11,
+      zoomControl: true,
+      scrollWheelZoom: false,
+    });
+    window._leafletMap = map;
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
+
+    const markers = {};
+    areas.forEach((area) => {
+      const circle = L.circleMarker([area.lat, area.lng], {
+        radius: 14,
+        fillColor: area.color,
+        color: '#fff',
+        weight: 3,
+        opacity: 1,
+        fillOpacity: 0.9,
+      }).addTo(map);
+
+      circle.bindPopup(`
+        <div style="min-width:180px">
+          <div style="font-weight:700;font-size:14px;margin-bottom:4px;color:#14532d">${area.name}</div>
+          <div style="font-size:13px;color:#374151"><strong>Day:</strong> ${area.day}</div>
+          <div style="font-size:13px;color:#374151;margin-top:2px"><strong>Frequency:</strong> ${area.frequency}</div>
+          <div style="font-size:12px;color:#6b7280;margin-top:6px;line-height:1.4">${area.notes}</div>
+        </div>
+      `);
+
+      markers[area.id] = circle;
+    });
+    window._leafletMarkers = markers;
+
+    fetch(base + '/data/service-areas.geojson')
+      .then((r) => r.json())
+      .then((geojson) => {
+        L.geoJSON(geojson, {
+          filter: (f) => f.properties.id === 'service-boundary',
+          style: (f) => ({
+            color: f.properties.stroke || '#15803d',
+            weight: f.properties['stroke-width'] || 2,
+            opacity: f.properties['stroke-opacity'] || 0.7,
+            fillColor: f.properties.fill || '#16a34a',
+            fillOpacity: f.properties['fill-opacity'] || 0.07,
+            dashArray: '6 4',
+          }),
+        }).addTo(map);
+      })
+      .catch(() => {});
+  }
+
+  function loadLeaflet() {
+    if (window._leafletLoading) return;
+    window._leafletLoading = true;
+
+    if (window.L) { createMap(); return; }
+
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.crossOrigin = 'anonymous';
+    script.onload = createMap;
+    script.onerror = () => { window._leafletLoading = false; };
+    document.head.appendChild(script);
+  }
+
+  // Mobile toggle
   const mapToggle = document.getElementById('map-toggle');
   const mapWrapper = document.getElementById('map-wrapper');
   mapToggle?.addEventListener('click', () => {
@@ -258,19 +347,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     mapToggle.setAttribute('aria-expanded', String(!expanded));
     mapWrapper?.classList.toggle('hidden');
     mapToggle.textContent = expanded ? '🗺 View Service Area Map' : '✕ Hide Map';
-    if (!expanded) initMap();
+    if (!expanded) loadLeaflet();
   });
 
-  // Auto-init map on desktop (sm breakpoint ≈ 640px)
+  // Auto-init on desktop
   if (window.matchMedia('(min-width: 640px)').matches) {
-    // Use IntersectionObserver for lazy init
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        initMap();
-        observer.disconnect();
-      }
-    }, { rootMargin: '200px' });
-    const target = document.getElementById('collection-map');
-    if (target) observer.observe(target);
+    loadLeaflet();
   }
 </script>

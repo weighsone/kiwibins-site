@@ -6,16 +6,17 @@ import { u } from '../utils/url';
 
 <Layout
   title="Kiwibins Horowhenua"
-  description="Levin's local bin company. Affordable weekly rubbish collection for homes and businesses across Horowhenua. Waitārere Beach to Manakau. Call Maggie on 06 368 8586."
+  description="Levin's local bin company. Affordable weekly rubbish collection for homes and businesses across Horowhenua. Waitārere Beach to Manakau. Call 06 368 8586."
   canonicalPath="/"
 >
 
   <Hero
     badge="Locally owned, Horowhenua"
     headline="Rubbish collection across Horowhenua"
-    subheadline="Straightforward weekly wheelie bin service for homes and businesses. Waitārere Beach to Manakau. Call Maggie directly on 06 368 8586."
+    subheadline="Straightforward weekly wheelie bin service for homes and businesses. Waitārere Beach to Manakau. Call us on 06 368 8586."
     primaryCta={{ label: 'Get a Kiwibin', href: u('/bins-and-prices/') }}
     secondaryCta={{ label: 'Check your collection day', href: u('/when-and-where/') }}
+    bgImage={u('/assets/images/hero-bg.jpg')}
   />
 
   <!-- Trust bar -->
@@ -23,7 +24,7 @@ import { u } from '../utils/url';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         {[
-          { icon: '📞', label: 'Call Maggie directly' },
+          { icon: '📞', label: 'Call us directly' },
           { icon: '🏡', label: 'Based in Manakau' },
           { icon: '⚡', label: 'Bin delivered in 3 days' },
           { icon: '💰', label: 'No lock-in contracts' },
@@ -42,9 +43,9 @@ import { u } from '../utils/url';
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         <div>
-          <h2 id="local-heading" class="section-heading">You call. Maggie picks up.</h2>
+          <h2 id="local-heading" class="section-heading">Local business. Direct contact.</h2>
           <p class="text-gray-600 mt-4 leading-relaxed">
-            Kiwibins is run by Maggie Bruce, who lives and works right here in Horowhenua. When you ring about your bin, you're not waiting on hold to speak to a call centre in another city. You're talking to the person who owns the business and collects your rubbish.
+            Kiwibins is a small local business, owned and run right here in Horowhenua. When you ring about your bin, you're not waiting on hold to speak to a call centre in another city. You're talking to the person who owns the business and collects your rubbish.
           </p>
           <p class="text-gray-600 mt-3 leading-relaxed">
             Got a question? Problem with your service? Just call or text. It gets sorted quickly because there's no one else in the chain.
@@ -56,7 +57,7 @@ import { u } from '../utils/url';
         </div>
         <div class="grid grid-cols-1 gap-3">
           {[
-            { them: 'Call centre hold music', us: 'Maggie answers directly' },
+            { them: 'Call centre hold music', us: 'Owner answers your call' },
             { them: 'Account portals and login screens', us: 'Call or text to get sorted' },
             { them: 'Weeks to set up', us: 'Bin at your door in 3 days' },
             { them: 'Rolling contracts', us: 'Pay weekly, monthly or yearly' },
@@ -129,10 +130,10 @@ import { u } from '../utils/url';
     </div>
   </section>
 
-  <!-- Service area + schedule -->
+  <!-- Service area + map image -->
   <section class="py-20 bg-gray-50" aria-labelledby="area-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         <div>
           <h2 id="area-heading" class="section-heading">Where we collect</h2>
           <p class="text-gray-600 mt-4 leading-relaxed">
@@ -153,50 +154,33 @@ import { u } from '../utils/url';
               </li>
             ))}
           </ul>
-          <div class="mt-6">
+          <div class="mt-6 flex flex-wrap gap-3">
             <a href={u('/when-and-where/')} class="btn-primary">
               View interactive map
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"/>
               </svg>
             </a>
+            <a href={u('/contact-us/')} class="btn-secondary">Not sure? Ask us</a>
           </div>
         </div>
 
-        <!-- Collection reminder card -->
-        <div class="card border-kiwi-200 bg-white">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center" aria-hidden="true">
-              <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-              </svg>
-            </div>
-            <h3 class="font-bold text-kiwi-900">Bin out by 7am</h3>
-          </div>
-          <p class="text-gray-600 text-sm leading-relaxed">
-            Get your kiwibin kerbside, facing the street, by <strong>7am on your collection day</strong>. Our truck comes through early, so don't leave it till the last minute.
-          </p>
-          <div class="mt-5 space-y-2.5 text-sm">
-            {[
-              'Lid must be fully closed',
-              'Max weight: 120L bin = 15kg, 240L bin = 30kg',
-              'No hazardous waste, hot ashes, or liquids',
-              'Extra bags left out will wait until next week',
-            ].map((tip) => (
-              <div class="flex items-start gap-2 text-gray-600">
-                <svg class="w-4 h-4 text-kiwi-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                {tip}
-              </div>
-            ))}
-          </div>
-          <a href={u('/faq/')} class="mt-5 inline-flex items-center gap-1 text-sm text-kiwi-600 hover:text-kiwi-800 font-medium transition-colors">
-            Read the full FAQ
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+        <!-- Service area map image -->
+        <div>
+          <img
+            src={u('/assets/images/service-area-map.jpg')}
+            alt="Map showing Kiwibins service areas across Horowhenua"
+            class="rounded-2xl shadow-md w-full border border-gray-200"
+            loading="lazy"
+            width="1200"
+            height="682"
+          />
+          <p class="text-xs text-gray-400 mt-2 flex items-center gap-1">
+            <svg class="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
             </svg>
-          </a>
+            Map boundaries are indicative. Contact us to confirm your collection day.
+          </p>
         </div>
       </div>
     </div>
