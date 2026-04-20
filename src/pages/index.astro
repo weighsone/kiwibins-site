@@ -6,15 +6,14 @@ import { u } from '../utils/url';
 
 <Layout
   title="Kiwibins Horowhenua"
-  description="Levin's local bin company. Affordable weekly rubbish collection for homes and businesses across Horowhenua – from Waitārere Beach to Manakau."
+  description="Levin's local bin company. Affordable weekly rubbish collection for homes and businesses across Horowhenua. Waitārere Beach to Manakau. Call Maggie on 06 368 8586."
   canonicalPath="/"
 >
 
-  <!-- Hero -->
   <Hero
-    badge="Levin-born & locally owned"
-    headline="Horowhenua's Local Bin Company"
-    subheadline="Big on service, small on fuss. Weekly rubbish collection for homes and businesses across Horowhenua — from Waitārere Beach to Manakau."
+    badge="Locally owned, Horowhenua"
+    headline="Rubbish collection across Horowhenua"
+    subheadline="Straightforward weekly wheelie bin service for homes and businesses. Waitārere Beach to Manakau. Call Maggie directly on 06 368 8586."
     primaryCta={{ label: 'Get a Kiwibin', href: u('/bins-and-prices/') }}
     secondaryCta={{ label: 'Check your collection day', href: u('/when-and-where/') }}
   />
@@ -24,10 +23,10 @@ import { u } from '../utils/url';
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
         {[
-          { icon: '🏡', label: 'Locally owned & family-run' },
-          { icon: '📞', label: 'Deal directly with the owners' },
-          { icon: '♻️', label: 'Serving Horowhenua since 2020' },
-          { icon: '⚡', label: 'Bin delivered within 3 days' },
+          { icon: '📞', label: 'Call Maggie directly' },
+          { icon: '🏡', label: 'Based in Manakau' },
+          { icon: '⚡', label: 'Bin delivered in 3 days' },
+          { icon: '💰', label: 'No lock-in contracts' },
         ].map(({ icon, label }) => (
           <div class="flex flex-col items-center gap-1.5">
             <span class="text-2xl" aria-hidden="true">{icon}</span>
@@ -38,21 +37,61 @@ import { u } from '../utils/url';
     </div>
   </section>
 
+  <!-- Why local beats a chain -->
+  <section class="py-16 bg-kiwi-50 border-b border-kiwi-100" aria-labelledby="local-heading">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 id="local-heading" class="section-heading">You call. Maggie picks up.</h2>
+          <p class="text-gray-600 mt-4 leading-relaxed">
+            Kiwibins is run by Maggie Bruce, who lives and works right here in Horowhenua. When you ring about your bin, you're not waiting on hold to speak to a call centre in another city. You're talking to the person who owns the business and collects your rubbish.
+          </p>
+          <p class="text-gray-600 mt-3 leading-relaxed">
+            Got a question? Problem with your service? Just call or text. It gets sorted quickly because there's no one else in the chain.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="tel:063688586" class="btn-primary">Call 06 368 8586</a>
+            <a href={u('/about-us/')} class="btn-secondary">About Kiwibins</a>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-3">
+          {[
+            { them: 'Call centre hold music', us: 'Maggie answers directly' },
+            { them: 'Account portals and login screens', us: 'Call or text to get sorted' },
+            { them: 'Weeks to set up', us: 'Bin at your door in 3 days' },
+            { them: 'Rolling contracts', us: 'Pay weekly, monthly or yearly' },
+          ].map(({ them, us }) => (
+            <div class="bg-white rounded-xl border border-gray-200 overflow-hidden grid grid-cols-2 text-sm">
+              <div class="px-4 py-3 text-gray-400 border-r border-gray-100 flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-gray-300 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                {them}
+              </div>
+              <div class="px-4 py-3 text-kiwi-800 font-medium flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-kiwi-500 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                {us}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Bin sizes overview -->
   <section class="py-20 bg-white" aria-labelledby="bins-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12">
-        <h2 id="bins-heading" class="section-heading">Choose your kiwibin size</h2>
-        <p class="section-subheading mx-auto">From compact 120L bins for small households to 1100L commercial containers. We've got a size to suit every property.</p>
+        <h2 id="bins-heading" class="section-heading">Pick the right bin size</h2>
+        <p class="section-subheading mx-auto">From a 120L bin for one person to a 1100L container for commercial sites. Pricing is straightforward with no hidden fees.</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {[
-          { size: '44-Gallon Drum', from: '$23', per: 'per empty', desc: 'Old-school drum service, text to book', href: u('/contact-us/') },
-          { size: '120L Wheelie Bin', from: '$9', per: 'per week', desc: 'Ideal for 1–2 person households', href: u('/order/120l/'), featured: true },
-          { size: '240L Wheelie Bin', from: '$13.20', per: 'per week', desc: 'Perfect for families of 3+', href: u('/order/240l/'), featured: true },
-          { size: '660L Wheelie Bin', from: '$45', per: 'per week', desc: 'Commercial & multi-tenancy', href: u('/contact-us/') },
-          { size: '1100L Wheelie Bin', from: '$70', per: 'per week', desc: 'Large commercial properties', href: u('/contact-us/') },
+          { size: '44-Gallon Drum', from: '$23', per: 'per empty', desc: 'Text-based booking, pay per empty', href: u('/contact-us/') },
+          { size: '120L Wheelie Bin', from: '$9', per: 'per week', desc: 'Good for 1 or 2 people', href: u('/order/120l/'), featured: true },
+          { size: '240L Wheelie Bin', from: '$13.20', per: 'per week', desc: 'Suits most households', href: u('/order/240l/'), featured: true },
+          { size: '660L Wheelie Bin', from: '$45', per: 'per week', desc: 'Commercial and multi-tenancy', href: u('/contact-us/') },
+          { size: '1100L Wheelie Bin', from: '$70', per: 'per week', desc: 'High-volume commercial sites', href: u('/contact-us/') },
         ].map(({ size, from, per, desc, href, featured }) => (
           <a
             href={href}
@@ -81,7 +120,7 @@ import { u } from '../utils/url';
 
       <div class="mt-10 text-center">
         <a href={u('/bins-and-prices/')} class="btn-primary">
-          See full pricing &amp; order
+          See full pricing and order
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
           </svg>
@@ -90,14 +129,14 @@ import { u } from '../utils/url';
     </div>
   </section>
 
-  <!-- Service area + schedule teaser -->
-  <section class="py-20 bg-kiwi-50" aria-labelledby="area-heading">
+  <!-- Service area + schedule -->
+  <section class="py-20 bg-gray-50" aria-labelledby="area-heading">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 id="area-heading" class="section-heading">We service your area</h2>
+          <h2 id="area-heading" class="section-heading">Where we collect</h2>
           <p class="text-gray-600 mt-4 leading-relaxed">
-            Weekly rubbish pickups from the Manawatu River Bridge, west to Waitārere Beach, east to Potts Road and south to Manakau. That's most of Horowhenua covered.
+            Weekly pickups from the Manawatu River Bridge, west to Waitārere Beach, east to Potts Road and south to Manakau. Most of Horowhenua is covered.
           </p>
           <ul class="mt-6 space-y-3 text-sm text-gray-700">
             {[
@@ -106,9 +145,9 @@ import { u } from '../utils/url';
               { area: 'Levin (Green Zone)', day: 'Thursday' },
               { area: 'Ohau', day: 'Wednesday' },
               { area: 'Waitārere Beach', day: 'Monday' },
-              { area: 'Manakau & Koputaroa', day: 'Alternate Wednesdays' },
+              { area: 'Manakau and Koputaroa', day: 'Alternate Wednesdays' },
             ].map(({ area, day }) => (
-              <li class="flex items-center justify-between py-2 border-b border-kiwi-100 last:border-0">
+              <li class="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
                 <span class="font-medium">{area}</span>
                 <span class="text-kiwi-700 font-semibold text-xs bg-kiwi-100 px-2.5 py-1 rounded-full">{day}</span>
               </li>
@@ -135,14 +174,14 @@ import { u } from '../utils/url';
             <h3 class="font-bold text-kiwi-900">Bin out by 7am</h3>
           </div>
           <p class="text-gray-600 text-sm leading-relaxed">
-            Get your kiwibin kerbside, facing the street, by <strong>7am on your collection day</strong>. Our truck comes through early — don't miss it!
+            Get your kiwibin kerbside, facing the street, by <strong>7am on your collection day</strong>. Our truck comes through early, so don't leave it till the last minute.
           </p>
           <div class="mt-5 space-y-2.5 text-sm">
             {[
-              'Lid must be fully shut',
-              'Maximum weight limits apply (120L = 15kg, 240L = 30kg)',
+              'Lid must be fully closed',
+              'Max weight: 120L bin = 15kg, 240L bin = 30kg',
               'No hazardous waste, hot ashes, or liquids',
-              'Extra bags will be left for next week',
+              'Extra bags left out will wait until next week',
             ].map((tip) => (
               <div class="flex items-start gap-2 text-gray-600">
                 <svg class="w-4 h-4 text-kiwi-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -163,66 +202,14 @@ import { u } from '../utils/url';
     </div>
   </section>
 
-  <!-- Why Kiwibins -->
-  <section class="py-20 bg-white" aria-labelledby="why-heading">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 id="why-heading" class="section-heading">Why choose Kiwibins?</h2>
-        <p class="section-subheading mx-auto">No call centres. No runaround. Just a hardworking local team that knows your street.</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          {
-            icon: '👋',
-            title: 'Deal with the owners',
-            body: 'Adam and Judith are hands-on in the business every day. When you call, you\'re talking to the people who actually run the trucks — not a call centre.',
-          },
-          {
-            icon: '🏘️',
-            title: 'Born and bred local',
-            body: 'Adam is a Levin boy through and through. We took over from Levin Mini Bins in 2020 and we\'re committed to serving our community for the long haul.',
-          },
-          {
-            icon: '💰',
-            title: 'Flexible payment options',
-            body: 'Pay weekly, fortnightly, monthly, or save up to 15% by paying yearly. We make it easy to manage your waste costs your way.',
-          },
-          {
-            icon: '📦',
-            title: 'Fast setup',
-            body: 'We aim to drop your kiwibin off within 3 working days of signing up. Get sorted quickly and never worry about rubbish day again.',
-          },
-          {
-            icon: '🔧',
-            title: 'Old-school drum service',
-            body: 'Still running a 44-gallon drum? Our man Eric has 25+ years of experience and runs the drum emptying service on a simple text-booking system.',
-          },
-          {
-            icon: '📈',
-            title: 'Growing service areas',
-            body: 'Manakau and Koputaroa are currently fortnightly — as more customers come on board we\'ll upgrade to weekly. Community-driven growth.',
-          },
-        ].map(({ icon, title, body }) => (
-          <div class="flex gap-4">
-            <div class="text-3xl shrink-0" aria-hidden="true">{icon}</div>
-            <div>
-              <h3 class="font-bold text-kiwi-900 mb-1.5">{title}</h3>
-              <p class="text-sm text-gray-600 leading-relaxed">{body}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- CTA strip -->
   <section class="bg-gradient-to-r from-kiwi-800 to-kiwi-700 py-16" aria-label="Call to action">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl font-extrabold text-white mb-3">Ready to get started?</h2>
-      <p class="text-kiwi-200 mb-8">Pick your bin size, choose your payment plan, and we'll have a kiwibin at your kerb within 3 days.</p>
+      <p class="text-kiwi-200 mb-8">Pick your bin size and fill in the form. We'll have a kiwibin at your kerb within 3 working days.</p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={u('/bins-and-prices/')} class="btn-orange">
-          See bins &amp; prices
+          See bins and prices
         </a>
         <a href={u('/contact-us/')} class="inline-flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg border-2 border-white/30 hover:bg-white/10 transition-colors">
           Get in touch
