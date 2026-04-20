@@ -16,7 +16,7 @@ const { question, id, defaultOpen = false } = Astro.props;
     aria-controls={`faq-panel-${id}`}
     itemprop="name"
   >
-    <span class="font-semibold text-kiwi-900 text-sm md:text-base">{question}</span>
+    <span class="font-semibold text-kiwi-700 text-sm md:text-base">{question}</span>
     <svg
       id={`faq-icon-${id}`}
       class:list={['w-5 h-5 text-kiwi-600 shrink-0 transition-transform duration-200', defaultOpen ? 'rotate-180' : '']}

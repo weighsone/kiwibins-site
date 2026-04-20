@@ -4,22 +4,24 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Brand palette matching the existing Kiwibins Horowhenua site
+        // Primary lime (#d7df23) with charcoal for dark/text shades
         kiwi: {
-          50:  '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-          950: '#052e16',
+          50:  '#fafde8',   // very light lime tint (subtle backgrounds)
+          100: '#f0f7a0',   // light lime (icon backgrounds, accents)
+          200: '#e4ee4a',   // medium lime
+          300: '#dce31e',   // bright lime
+          400: '#d7df23',   // PRIMARY BRAND LIME (CTA buttons)
+          500: '#b9c105',   // lime hover
+          600: '#565656',   // body text / link colour
+          700: '#464A53',   // headings / dark text
+          800: '#3a3e45',   // darker structural
+          900: '#323232',   // dark backgrounds (footer, dark sections)
+          950: '#1e2024',   // darkest
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
+        sans: ['Nunito', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.4s ease-out',

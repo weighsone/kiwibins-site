@@ -50,7 +50,7 @@ const formId = `order-form-${binSize.toLowerCase()}`;
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-required="true">
       {pricing.map((option, i) => (
         <label
-          class="relative flex items-start gap-3 p-3.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-kiwi-400 has-[:checked]:border-kiwi-600 has-[:checked]:bg-kiwi-50 transition-colors"
+          class="relative flex items-start gap-3 p-3.5 rounded-xl border-2 border-gray-200 cursor-pointer hover:border-kiwi-400 has-[:checked]:border-kiwi-400 has-[:checked]:bg-kiwi-50 transition-colors"
           for={`${formId}-freq-${i}`}
         >
           <input

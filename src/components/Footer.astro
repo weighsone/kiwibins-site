@@ -3,31 +3,31 @@ import { u } from '../utils/url';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-kiwi-950 text-kiwi-200">
+<footer class="bg-kiwi-900 text-gray-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
       <!-- Brand column -->
       <div class="lg:col-span-1">
-        <div class="flex items-center gap-2.5 mb-4">
-          <div class="w-9 h-9 bg-kiwi-600 rounded-lg flex items-center justify-center text-white shrink-0" aria-hidden="true">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-            </svg>
-          </div>
-          <div>
-            <div class="text-base font-bold text-white leading-tight">Kiwibins</div>
-            <div class="text-xs text-kiwi-400 font-medium leading-tight">Horowhenua</div>
-          </div>
+        <div class="mb-4">
+          <a href={u('/')} class="inline-block bg-white rounded-lg px-3 py-1.5" aria-label="Kiwibins Horowhenua – home">
+            <img
+              src={u('/assets/images/kiwibins-logo.png')}
+              alt="Kiwibins Horowhenua"
+              class="h-8 w-auto"
+              width="289"
+              height="111"
+            />
+          </a>
         </div>
-        <p class="text-sm text-kiwi-300 leading-relaxed">
+        <p class="text-sm text-gray-400 leading-relaxed">
           Local rubbish collection across Horowhenua. Locally owned and operated, based in Manakau.
         </p>
         <a
           href="https://www.facebook.com/p/Kiwi-Bins-Horowhenua-100067678432728/"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mt-4 text-sm text-kiwi-300 hover:text-white transition-colors"
+          class="inline-flex items-center gap-2 mt-4 text-sm text-gray-400 hover:text-white transition-colors"
           aria-label="Follow us on Facebook"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -39,7 +39,7 @@ const year = new Date().getFullYear();
 
       <!-- Quick links -->
       <div>
-        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h3>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Quick Links</h3>
         <ul class="space-y-2.5 text-sm">
           {[
             { href: u('/'), label: 'Home' },
@@ -50,7 +50,7 @@ const year = new Date().getFullYear();
             { href: u('/contact-us/'), label: 'Contact Us' },
           ].map(link => (
             <li>
-              <a href={link.href} class="text-kiwi-300 hover:text-white transition-colors">{link.label}</a>
+              <a href={link.href} class="text-gray-400 hover:text-white transition-colors">{link.label}</a>
             </li>
           ))}
         </ul>
@@ -58,12 +58,12 @@ const year = new Date().getFullYear();
 
       <!-- Documents -->
       <div>
-        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Documents</h3>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Documents</h3>
         <ul class="space-y-2.5 text-sm">
           <li>
             <a
               href={u('/assets/pdfs/bin-care-sheet.pdf')}
-              class="text-kiwi-300 hover:text-white transition-colors flex items-center gap-1.5"
+              class="text-gray-400 hover:text-white transition-colors flex items-center gap-1.5"
               download
             >
               <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -75,24 +75,24 @@ const year = new Date().getFullYear();
           <li>
             <a
               href={u('/terms-and-conditions/')}
-              class="text-kiwi-300 hover:text-white transition-colors"
+              class="text-gray-400 hover:text-white transition-colors"
             >
               Terms &amp; Conditions
             </a>
           </li>
         </ul>
 
-        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4 mt-7">Order a Bin</h3>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 mt-7">Order a Bin</h3>
         <ul class="space-y-2.5 text-sm">
-          <li><a href={u('/order/120l/')} class="text-kiwi-300 hover:text-white transition-colors">Order 120L Bin</a></li>
-          <li><a href={u('/order/240l/')} class="text-kiwi-300 hover:text-white transition-colors">Order 240L Bin</a></li>
+          <li><a href={u('/order/120l/')} class="text-gray-400 hover:text-white transition-colors">Order 120L Bin</a></li>
+          <li><a href={u('/order/240l/')} class="text-gray-400 hover:text-white transition-colors">Order 240L Bin</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h3 class="text-sm font-semibold text-white uppercase tracking-wider mb-4">Contact</h3>
-        <ul class="space-y-3 text-sm text-kiwi-300">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Contact</h3>
+        <ul class="space-y-3 text-sm text-gray-400">
           <li class="flex items-start gap-2">
             <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
@@ -103,7 +103,7 @@ const year = new Date().getFullYear();
             <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
             </svg>
-            <span>021 203 3205 <span class="text-kiwi-500 text-xs">(text drum requests)</span></span>
+            <span>021 203 3205 <span class="text-gray-500 text-xs">(text drum requests)</span></span>
           </li>
           <li class="flex items-start gap-2">
             <svg class="w-4 h-4 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -126,7 +126,7 @@ const year = new Date().getFullYear();
     </div>
 
     <!-- Bottom bar -->
-    <div class="border-t border-kiwi-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-kiwi-500">
+    <div class="border-t border-kiwi-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
       <p>&copy; {year} Kiwibins 2025 Limited. All rights reserved.</p>
       <p>Serving Horowhenua &mdash; Waitārere Beach to Manakau</p>
     </div>

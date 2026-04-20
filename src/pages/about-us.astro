@@ -57,10 +57,10 @@ import { u } from '../utils/url';
               body: 'Pay weekly, fortnightly, monthly or yearly. Need to pause? Change your service? Just call or text.',
             },
           ].map(({ icon, title, body }) => (
-            <div class="flex items-start gap-4 p-4 rounded-xl bg-kiwi-50 border border-kiwi-100">
+            <div class="flex items-start gap-4 p-4 rounded-xl bg-[#ececec] border border-gray-200">
               <span class="text-2xl shrink-0" aria-hidden="true">{icon}</span>
               <div>
-                <h3 class="font-bold text-kiwi-900 text-sm mb-0.5">{title}</h3>
+                <h3 class="font-bold text-kiwi-700 text-sm mb-0.5">{title}</h3>
                 <p class="text-sm text-gray-600">{body}</p>
               </div>
             </div>
@@ -70,13 +70,13 @@ import { u } from '../utils/url';
     </div>
   </section>
 
-  <section class="py-14 bg-kiwi-50 border-y border-kiwi-100" aria-labelledby="drum-heading">
+  <section class="py-14 bg-[#ececec] border-y border-gray-200" aria-labelledby="drum-heading">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="card max-w-2xl mx-auto text-center">
         <div class="w-16 h-16 bg-kiwi-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl" aria-hidden="true">
           🚛
         </div>
-        <h2 id="drum-heading" class="text-xl font-bold text-kiwi-900 mb-3">44-gallon drum service</h2>
+        <h2 id="drum-heading" class="text-xl font-bold text-kiwi-700 mb-3">44-gallon drum service</h2>
         <p class="text-gray-600 text-sm leading-relaxed">
           Prefer a drum over a wheelie bin? We still run a text-based drum emptying service for customers who want it. Just text <a href="sms:0212033205" class="text-kiwi-600 hover:underline font-semibold">021 203 3205</a> to book an empty. $23 per empty, cash on the day or by bank transfer.
         </p>
@@ -113,13 +113,13 @@ import { u } from '../utils/url';
         ].map(({ label, value, href, icon }) => (
           <div class="text-center">
             <div class="text-3xl mb-2" aria-hidden="true">{icon}</div>
-            <div class="text-xs font-semibold text-kiwi-400 uppercase tracking-wider mb-1">{label}</div>
+            <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">{label}</div>
             {href ? (
-              <a href={href} class="text-kiwi-100 hover:text-white text-sm font-medium transition-colors break-all">
+              <a href={href} class="text-gray-200 hover:text-white text-sm font-medium transition-colors break-all">
                 {value}
               </a>
             ) : (
-              <span class="text-kiwi-100 text-sm">{value}</span>
+              <span class="text-gray-200 text-sm">{value}</span>
             )}
           </div>
         ))}
